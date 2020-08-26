@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <title>The Fight Club</title>
+		    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	    <!-- <link rel="stylesheet" href="../assets/css/style.css" type="text/css" /> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<style>
+canvas {
+    border:1px solid #d3d3d3;
+    background-color: #f1f1f1;
+}
+</style>
+    </head>
+    <body onload="startGame()">
+   <script>
+       var myGamePiece;
+
+
+// const component = require("./lib/component");
+
+function startGame() {
+    myGameArea.start();
+    // myGamePiece =  component(30, 30, "red", 10, 120);
+    myGamePiece =  new component(30, 30, "red", 10, 120);
+    console.log(myGamePiece);
+}
+
+var myGameArea = {
+    canvas : document.createElement("canvas"),
+    start : function() {
+        // var canvas = $("<canvas>").attr("width", 480).attr("height" , 270).attr("style", " border:1px solid #d3d3d3; background-color: #f1f1f1;");
+
+        // canvas.context = canvas.getContext("2d");
+        // $("body").insertBefore(this.canvas);
+        // this.interval = setInterval(updateGameArea, 20);
+       
+          this.canvas.width = 480;
+          this.canvas.height = 270;
+          this.context = this.canvas.getContext("2d");
+          document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+          this.interval = setInterval(updateGameArea, 20);
+        window.addEventListener('keydown', function (e) {
+            myGameArea.key = e.keyCode;
+        })
+        window.addEventListener('keyup', function (e) {
+            myGameArea.key = false;
+        })
+    }, 
+    clear : function(){
+        this.context.
+        clearRect(0, 0, this.canvas.width, this.canvas.height);
+    }
+}
+
+function stopMove() {
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
+  }
+
+function updateGameArea() {
+    myGameArea.clear();
+    myGamePiece.speedX = 0;
+    myGamePiece.speedY = 0;
+  
+    if (myGameArea.key && myGameArea.key == 37) {myGamePiece.speedX = -1; }
+    if (myGameArea.key && myGameArea.key == 39) {myGamePiece.speedX = 1; }
+    if (myGameArea.key && myGameArea.key == 38) {myGamePiece.speedY = -1; }
+    if (myGameArea.key && myGameArea.key == 40) {myGamePiece.speedY = 1; }
+  
+    myGamePiece.newPos();    
+    myGamePiece.update();
+}
+
+function component(width, height, color, x, y) {
+    this.gamearea = myGameArea;
+
+    this.width = width;
+
+    this.height = height;
+     this.speedX = 0;
+     this.speedY = 0;
+    this.x = x;
+    this.y = y;
+    this.update = function() {
+      ctx = myGameArea.context;
+      ctx.fillStyle = color;
+      ctx.fillRect(this.x, this.y , this.width, this.height);
+    }
+    this.newPos = function() {
+      this.x += this.speedX;
+     this.y +=  this.speedY;
+    }
+  }
+
+   </script>
+        <!-- <button onclick="moveleft()" onmouseup="stopMove()">LEFT</button>
+        <button onclick="moveright()" onmouseup="stopMove()">RIGHT</button> -->
+ 
+</body>
+
+<!-- <script src ="../sample.js"></script> -->
+<!-- <script src="../assets/js/handleEvents.js"></script> -->
+
+</html>
