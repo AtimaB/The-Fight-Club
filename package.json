@@ -1,0 +1,31 @@
+{
+  "name": "the-fight-club",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sample.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtimaB/The-Fight-Club.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AtimaB/The-Fight-Club/issues"
+  },
+  "homepage": "https://github.com/AtimaB/The-Fight-Club#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "http": "0.0.1-security",
+    "mysql": "^2.18.1",
+    "path": "^0.12.7",
+    "socket.io": "^2.3.0"
+  }
+}
