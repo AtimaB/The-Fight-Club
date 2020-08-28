@@ -1,3 +1,4 @@
+
 var myGamePiece;
 
 
@@ -78,4 +79,3 @@ function component(width, height, color, x, y) {
   }
 
   startGame();
-  modul

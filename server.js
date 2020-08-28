@@ -24,60 +24,26 @@ app.set("view engine", "handlebars");
 var routes = require("./controllers/gameController.js");
 
 app.use(routes);
-
-io.sockets.on("connection", function (socket) {
-  console.log("socket connected")
-socket.emit('connect',{msg:"hello"})
+const players = [];
+io.on("connection", function (socket) {
+console.log("socket connected" +socket);
+// joinGame(socket);
 // socket.emit("position", position);
-joinGame(socket);
+socket.emit('init',{id: socket.id , plyrs : players});
 
-if (getOpponent(socket)) {
-  socket.emit("game.begin", {
-    symbol: players[socket.id].symbol,
-  });
-  getOpponent(socket).emit("game.begin", {
-    symbol: players[getOpponent(socket).id].symbol,
-  });
-}
-
-// socket.on("make.move", function (data) {
-//   if (!getOpponent(socket)) {
-//     return;
-//   }
-//   socket.emit("move.made", data);
-//   getOpponent(socket).emit("move.made", data);
-// });
-
-socket.on("disconnect", function () {
-  if (getOpponent(socket)) {
-    getOpponent(socket).emit("opponent.left");
+  //Listening for the new player... like server listening for the req from client
+  socket.on("new-player" , obj => {
+  players.push(obj);
+  if(!players.length === 2){
+    
   }
+  socket.broadcast.emit("new-player" , obj)
+  });
+  
+  socket.on("move-player" , dir => socket.broadcast.emit("move-player" , {id: socket.id, dir}));
+  socket.on("stop-player" , dir => socket.broadcast.emit("stop-player" , {id: socket.id, dir}));
+
 });
-});
-
-function joinGame(socket) {
-players[socket.id] = {
-  opponent: unmatched,
-
-  // symbol: "X",
-  // The socket that is associated with this player
-  socket: socket,
-};
-if (unmatched) {
-  // players[socket.id].symbol = "O";
-  players[unmatched].opponent = socket.id;
-  unmatched = null;
-} else {
-  unmatched = socket.id;
-}
-}
-
-function getOpponent(socket) {
-if (!players[socket.id].opponent) {
-  return;
-}
-return players[players[socket.id].opponent].socket;
-}
 
 
 http.listen(PORT, function() {

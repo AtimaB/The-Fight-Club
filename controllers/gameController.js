@@ -1,8 +1,9 @@
+
 var express = require("express");
 var path = require("path");
 var router = express.Router();
 
-var pathForindexFile = path.join(__dirname, '../views/index1.html');
+var pathForindexFile = path.join(__dirname, '../views/index.html');
 // Import the model (burger.js) to use its database functions.
 // var burger = require("../models/.js");
 
@@ -21,6 +22,7 @@ router.post("/api/game", function(req, res) {
     
    
 });
+
 
 
 // Export routes for server.js to use.

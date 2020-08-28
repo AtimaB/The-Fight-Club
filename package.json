@@ -2,13 +2,14 @@
   "name": "the-fight-club",
   "version": "1.0.0",
   "description": "",
-  "main": "sample.js",
+  "main": "main.js",
   "directories": {
     "lib": "lib"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node server.js",
+    "type": "module"
   },
   "repository": {
     "type": "git",
