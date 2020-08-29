@@ -5,19 +5,21 @@ const socket = io(),
   canvas = document.getElementById("game"),
   // console.log(canvas),
   ctx = canvas.getContext("2d");
-
 // const writeToCanvas = msg => {
 //     ctx.fillStyle = "black";
 //     ctx.font = "20px";
 //     ctx.fillText(msg , 30, 30);
-
 // }
+
+var img = '../assets/images/walk.gif';
 let players = [];
+let count = 0;
 socket.on("init", ({ id, plyrs }) => {
   // const player = new Player({ id });
   // socket.emit()
   // writeToCanvas("Connected");
-  let player = new Player({ id });
+  let player = new Player({ id, img});
+  // console.log(plyrs.length);
   controls(player, socket);
   socket.emit("new-player", player);
   //This especially runs on other machines...
@@ -44,7 +46,6 @@ socket.on("init", ({ id, plyrs }) => {
     }
     players[i].x = obj.x;
     players[i].y = obj.y;
-
     draw();
   });
   console.log(players);
@@ -58,14 +59,10 @@ socket.on("init", ({ id, plyrs }) => {
     players.splice(i,1);
     draw();
   });
-
   const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     players.forEach((v) => v.draw(ctx));
-
     requestAnimationFrame(draw);
   };
-
   draw();
 });
