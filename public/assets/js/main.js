@@ -1,7 +1,8 @@
 import Player from "./player.js";
 import controls from "./controls.js";
 // const Player = require("Player.js");
-const socket = io(),
+window.onload = function() {
+  const socket = io(),
   canvas = document.getElementById("game"),
   // console.log(canvas),
   ctx = canvas.getContext("2d");
@@ -81,3 +82,5 @@ socket.on("init", ({ id, plyrs }) => {
 
   draw();
 });
+
+}

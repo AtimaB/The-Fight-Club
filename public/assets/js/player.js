@@ -42,7 +42,7 @@ draw(ctx){
         //   this.width, this.height);
         var img = document.getElementById('source');
 
-        ctx.drawImage(img,this.x,this.y,this.width,this.height);
+        ctx.drawImage(img,this.x,this.y,this.w,this.h);
       } else {
         // ctx.fillStyle = color;
         ctx.fillRect(this.x, this.y, this.width, this.height);
