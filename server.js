@@ -31,6 +31,7 @@ io.on("connection", function (socket) {
   console.log("socket connected" + socket);
   // joinGame(socket);
   // socket.emit("position", position);
+
   socket.emit("init", { id: socket.id, plyrs: players });
 
   //Listening for the new player... like server listening for the req from client
