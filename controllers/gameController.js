@@ -18,7 +18,7 @@ router.post("/api/game", function(req, res) {
  
 });
 
-  router.put("/api/game/:id", function(req, res) {
+router.put("/api/game/:id", function(req, res) {
     
    
 });

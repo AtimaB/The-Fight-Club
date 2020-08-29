@@ -12,12 +12,24 @@ const socket = io(),
 //     ctx.fillText(msg , 30, 30);
 
 // }
+// var img = '../assets/images/char3.png';
+//        img.src = 
+var img = document.getElementById('source');
+
 let players = [];
+let count = 0;
 socket.on("init", ({ id, plyrs }) => {
   // const player = new Player({ id });
   // socket.emit()
   // writeToCanvas("Connected");
-  let player = new Player({ id });
+  let type = "image";
+  let w;
+  let h;
+  let x;
+  let y;
+
+  let player = new Player({ id, w, h, img, x, y, type});
+  // console.log(plyrs.length);
   controls(player, socket);
   socket.emit("new-player", player);
   //This especially runs on other machines...
