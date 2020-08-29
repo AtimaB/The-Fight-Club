@@ -1,5 +1,5 @@
 var express = require("express");
-
+var db = require("./models");
 var PORT = process.env.PORT || 8080;
 
 var app = express();
@@ -26,7 +26,7 @@ const { log } = require("console");
 
 app.use(routes);
 const players = [];
-const sockets = {}
+const sockets = {};
 io.on("connection", function (socket) {
   console.log("socket connected" + socket);
   // joinGame(socket);
@@ -35,43 +35,49 @@ io.on("connection", function (socket) {
 
   //Listening for the new player... like server listening for the req from client
   socket.on("new-player", (obj) => {
-    if(sockets[obj.id]) {
+    if (sockets[obj.id]) {
       return;
     }
-    console.log("new-player" );
+    console.log("new-player");
     console.log(obj);
     players.push(obj);
     socket.broadcast.emit("new-player", obj);
   });
 
   socket.on("update-player", (obj) => {
-    let i = players.findIndex(p => p.id === obj.id);
-    if(i < 0) {
+    let i = players.findIndex((p) => p.id === obj.id);
+    if (i < 0) {
       return;
     }
     players[i] = obj;
-    console.log("update-player" );
+    console.log("update-player");
     console.log(obj);
-    return socket.broadcast.emit("update-player", { obj })
+    return socket.broadcast.emit("update-player", { obj });
   });
   socket.on("move-player", (dir) => {
-    console.log("move-player" );
+    console.log("move-player");
     console.log(dir);
-    return socket.broadcast.emit("move-player", { id: socket.id, dir })
+    return socket.broadcast.emit("move-player", { id: socket.id, dir });
   });
   socket.on("stop-player", (dir) => {
-    console.log("stop-player" );
+    console.log("stop-player");
     console.log(dir);
-    return socket.broadcast.emit("stop-player", { id: socket.id, dir })
+    return socket.broadcast.emit("stop-player", { id: socket.id, dir });
   });
-  socket.on('disconnect', function () {
-    var i = players.findIndex(p => p.id === socket.id);
+  socket.on("disconnect", function () {
+    var i = players.findIndex((p) => p.id === socket.id);
     console.log("remove " + i + " " + socket);
     players.splice(i, 1);
-    return socket.broadcast.emit("remove-player", {id: socket.id})
+    return socket.broadcast.emit("remove-player", { id: socket.id });
   });
 });
 
-http.listen(PORT, function () {
-  console.log("App now listening at localhost:" + PORT);
+db.sequelize.sync().then(function () {
+  http.listen(PORT, function () {
+    console.log("App listening on PORT " + PORT);
+  });
 });
+
+// http.listen(PORT, function () {
+//   console.log("App now listening at localhost:" + PORT);
+// });
