@@ -5,12 +5,12 @@
 </template>
 
 <script>
-import HelloWorld from "./components/FightGame.vue";
+import FightGame from "./components/FightGame.vue";
 
 export default {
   name: "App",
   components: {
-    HelloWorld,
+    FightGame,
   },
 };
 </script>
