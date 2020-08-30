@@ -22,37 +22,34 @@ this.isMoving = {};
 draw(ctx){
     if(this.isMoving.right)this.x += this.speed;
     if(this.isMoving.left)this.x -= this.speed;
-    if(this.isMoving.up)this.y -= this.speed;
-    if(this.isMoving.down)this.y += this.speed;
-     this.y = Math.min(this.y, 600 -this.h)
-     this.x = Math.min(this.x, 800 -this.w)
-     if(this.x < 0) {
-         this.x = 0;
-     }
-     if(this.y < 0) {
-         this.y = 0;
-     }
-    ctx.beginPath();
+    // if(this.isMoving.up)this.y -= this.speed;
+    // if(this.isMoving.down)this.y += this.speed;
+      this.y = Math.min(this.y, 900 -this.h)
+      this.x = Math.min(this.x, 1700 -this.w)
+      if(this.x < 0) {
+          this.x = 0;
+      }
+      if(this.y < 0) {
+          this.y = 0;
+      }
    
+      ctx.beginPath();
     if (this.type == "image") {
-        // ctx.drawImage(this.image,
-        //   this.x,
-        //   this.y,
-        //   this.width, this.height);
       
         if(this.playerCount%2 === 0){
           this.img = document.getElementById('source');
-          this.x = 150;
-          this.y = 600;
+        //    this.x = 150;
+        //    this.y = 600;
         } else{
           this.img = document.getElementById('source1');
-          this.x = 1400;
-          this.y = 600;
+        //    this.x = 1400;
+        //    this.y = 600;
         }
-
+       
         ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
       } else {
         // ctx.fillStyle = color;
+      
         ctx.fillRect(this.x, this.y, this.w, this.h);
       }
 }
