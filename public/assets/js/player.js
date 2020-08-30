@@ -1,12 +1,13 @@
 class Player{
 
-constructor({id, w=30, h=30, img , x=10, y=20, type}){
+constructor({id, w=300, h=300, img , x=10, y=20, type, playerCount}){
     this.type = type;
     //  if (type == "image") {
     //    this.image = new Image();
     //    this.image.src = color;
     //  }
     this.img = img;
+    this.playerCount=playerCount;
 this.id=id;
 this.w=w;
 this.h=h;
@@ -32,20 +33,27 @@ draw(ctx){
          this.y = 0;
      }
     ctx.beginPath();
-    // ctx.fillStyle = this.color;
-    // ctx.fillRect(this.x, this.y, this.w, this.h);
-    // ctx.drawImage(image, this.x,this.y);
+   
     if (this.type == "image") {
         // ctx.drawImage(this.image,
         //   this.x,
         //   this.y,
         //   this.width, this.height);
-        var img = document.getElementById('source');
+      
+        if(this.playerCount%2 === 0){
+          this.img = document.getElementById('source');
+          this.x = 150;
+          this.y = 600;
+        } else{
+          this.img = document.getElementById('source1');
+          this.x = 1400;
+          this.y = 600;
+        }
 
-        ctx.drawImage(img,this.x,this.y,this.width,this.height);
+        ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
       } else {
         // ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillRect(this.x, this.y, this.w, this.h);
       }
 }
 

@@ -1,6 +1,8 @@
 import Player from "./player.js";
 import controls from "./controls.js";
 // const Player = require("Player.js");
+
+window.onload = function(){
 const socket = io(),
   canvas = document.getElementById("game"),
   // console.log(canvas),
@@ -14,7 +16,7 @@ const socket = io(),
 // }
 // var img = '../assets/images/char3.png';
 //        img.src = 
-var img = document.getElementById('source');
+
 
 let players = [];
 let count = 0;
@@ -27,8 +29,9 @@ socket.on("init", ({ id, plyrs }) => {
   let h;
   let x;
   let y;
-
-  let player = new Player({ id, w, h, img, x, y, type});
+  let img;
+  let playerCount = plyrs.length;
+  let player = new Player({ id, w, h, img, x, y, type, playerCount});
   // console.log(plyrs.length);
   controls(player, socket);
   socket.emit("new-player", player);
@@ -81,3 +84,4 @@ socket.on("init", ({ id, plyrs }) => {
 
   draw();
 });
+}
