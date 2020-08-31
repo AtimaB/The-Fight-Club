@@ -1,6 +1,8 @@
 import Player from "./player.js";
 import controls from "./controls.js";
 // const Player = require("Player.js");
+
+window.onload = function(){
 const socket = io(),
   canvas = document.getElementById("game"),
   // console.log(canvas),
@@ -14,7 +16,7 @@ const socket = io(),
 // }
 // var img = '../assets/images/char3.png';
 //        img.src = 
-var img = document.getElementById('source');
+
 
 let players = [];
 let count = 0;
@@ -27,8 +29,19 @@ socket.on("init", ({ id, plyrs }) => {
   let h;
   let x;
   let y;
-
-  let player = new Player({ id, w, h, img, x, y, type});
+  let img;
+  let playerCount = plyrs.length;
+  console.log(playerCount);
+  if(playerCount %2 === 0){
+    x= 80;
+    y= 600;
+    
+  }else{
+    x = 1400;
+    y = 600;
+   
+  }
+  let player = new Player({ id, w, h, img, x, y, type, playerCount});
   // console.log(plyrs.length);
   controls(player, socket);
   socket.emit("new-player", player);
@@ -39,7 +52,7 @@ socket.on("init", ({ id, plyrs }) => {
     players.push(new Player(obj));
   });
   players = plyrs.map((v) => new Player(v)).concat(player);
-  var directory;
+
   socket.on("move-player", ({ id, dir }) => {
     console.log("move-player");
     console.log(id);
@@ -81,3 +94,4 @@ socket.on("init", ({ id, plyrs }) => {
 
   draw();
 });
+}
