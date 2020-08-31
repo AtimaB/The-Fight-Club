@@ -1,6 +1,6 @@
 class Player{
 
-constructor({id, w=300, h=300, img , x=10, y=20, type, playerCount}){
+constructor({id, w=450, h=500, img , x, y, type, playerCount}){
     this.type = type;
     //  if (type == "image") {
     //    this.image = new Image();
@@ -8,50 +8,67 @@ constructor({id, w=300, h=300, img , x=10, y=20, type, playerCount}){
     //  }
     this.img = img;
     this.playerCount=playerCount;
-this.id=id;
-this.w=w;
-this.h=h;
-this.x=x;
-this.y=y;
-// this.img = img;
-// this.color=color;
-this.speed = 2;
-this.isMoving = {};
+    this.id=id;
+    this.w=w;
+    this.h=h;
+    this.x=x;
+    this.y=y;
+    // this.img = img;
+    // this.color=color;
+    this.speed = 2;
+    this.isMoving = {};
+    // this.draw = draw;
 
 }
 draw(ctx){
-    if(this.isMoving.right)this.x += this.speed;
-    if(this.isMoving.left)this.x -= this.speed;
-    // if(this.isMoving.up)this.y -= this.speed;
-    // if(this.isMoving.down)this.y += this.speed;
-      this.y = Math.min(this.y, 900 -this.h)
-      this.x = Math.min(this.x, 1700 -this.w)
-      if(this.x < 0) {
-          this.x = 0;
-      }
-      if(this.y < 0) {
-          this.y = 0;
-      }
-   
-      ctx.beginPath();
-    if (this.type == "image") {
-      
-        if(this.playerCount%2 === 0){
-          this.img = document.getElementById('source');
-        //    this.x = 150;
-        //    this.y = 600;
-        } else{
-          this.img = document.getElementById('source1');
-        //    this.x = 1400;
-        //    this.y = 600;
+
+      var movingImg ;
+          if(this.playerCount%2 === 0){
+             
+            this.img = document.getElementById('source');
+          
+          } else{
+              
+            this.img = document.getElementById('source1');
+          
+          }
+
+          if(this.isMoving.right){
+            this.x += this.speed;
+            if(this.playerCount%2 === 0){
+            this.img = document.getElementById('moving');
+            }else{
+              this.img = document.getElementById('moving1');
+            }
+           
+          }
+          if(this.isMoving.left){
+            this.x -= this.speed;
+            if(this.playerCount%2 === 0){
+            this.img = document.getElementById('moving');
+           
+          }else{
+            this.img = document.getElementById('moving1');
+          }
         }
-       
+        
+        //  if(this.isMoving.up)this.y -= this.speed;
+        //  if(this.isMoving.down)this.y += this.speed;
+         
+          this.x = Math.min(this.x, 1700 -this.w)
+          this.y = Math.min(this.y, 1000 -this.h)
+
+          if(this.x < 0) {
+              this.x = 0;
+          }
+          if(this.y < 0) {
+              this.y = 0;
+          }
+
+        // ctx.beginPath();
+   
         ctx.drawImage(this.img,this.x,this.y,this.w,this.h);
-      } else {
-        // ctx.fillStyle = color;
-      
-        ctx.fillRect(this.x, this.y, this.w, this.h);
-      }
+    
 }
 
 move(dir){

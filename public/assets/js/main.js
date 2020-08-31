@@ -31,6 +31,16 @@ socket.on("init", ({ id, plyrs }) => {
   let y;
   let img;
   let playerCount = plyrs.length;
+  console.log(playerCount);
+  if(playerCount %2 === 0){
+    x= 80;
+    y= 600;
+    
+  }else{
+    x = 1400;
+    y = 600;
+   
+  }
   let player = new Player({ id, w, h, img, x, y, type, playerCount});
   // console.log(plyrs.length);
   controls(player, socket);
@@ -42,7 +52,7 @@ socket.on("init", ({ id, plyrs }) => {
     players.push(new Player(obj));
   });
   players = plyrs.map((v) => new Player(v)).concat(player);
-  var directory;
+
   socket.on("move-player", ({ id, dir }) => {
     console.log("move-player");
     console.log(id);
