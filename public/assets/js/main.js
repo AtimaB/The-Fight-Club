@@ -1,6 +1,8 @@
 import Player from "./player.js";
 import controls from "./controls.js";
 // const Player = require("Player.js");
+
+window.onload = function(){
 const socket = io(),
   canvas = document.getElementById("game"),
   // console.log(canvas),
@@ -12,12 +14,35 @@ const socket = io(),
 //     ctx.fillText(msg , 30, 30);
 
 // }
+// var img = '../assets/images/char3.png';
+//        img.src = 
+
+
 let players = [];
+let count = 0;
 socket.on("init", ({ id, plyrs }) => {
   // const player = new Player({ id });
   // socket.emit()
   // writeToCanvas("Connected");
-  let player = new Player({ id });
+  let type = "image";
+  let w;
+  let h;
+  let x;
+  let y;
+  let img;
+  let playerCount = plyrs.length;
+  console.log(playerCount);
+  if(playerCount %2 === 0){
+    x= 80;
+    y= 600;
+    
+  }else{
+    x = 1400;
+    y = 600;
+   
+  }
+  let player = new Player({ id, w, h, img, x, y, type, playerCount});
+  // console.log(plyrs.length);
   controls(player, socket);
   socket.emit("new-player", player);
   //This especially runs on other machines...
@@ -27,7 +52,7 @@ socket.on("init", ({ id, plyrs }) => {
     players.push(new Player(obj));
   });
   players = plyrs.map((v) => new Player(v)).concat(player);
-  var directory;
+
   socket.on("move-player", ({ id, dir }) => {
     console.log("move-player");
     console.log(id);
@@ -69,3 +94,4 @@ socket.on("init", ({ id, plyrs }) => {
 
   draw();
 });
+}

@@ -21,6 +21,7 @@ export default (player, socket) => {
         if(!dir) {
             return;
         }
+        // player.images.src = "../public/assets/images/char1.png";
         player.stop(dir);
         socket.emit("update-player", player);
         }
