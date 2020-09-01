@@ -14,7 +14,7 @@
 canvas {
     border:1px solid #201f1f;
     /* background: rgb(241, 216, 207); */
-    background-image: url("../assets/images/gamebackground.png");
+    background-image: url("../assets/images/gamebackground.jpg");
     background-repeat: no-repeat;
     /* background-size: auto; */
     /* width:100%; */
@@ -49,6 +49,18 @@ html,body{
             <img id="walkGif" src="../assets/images/walk.gif">
           </div>
 
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="attack" src="../assets/images/charGuitar.png">
+          </div>
+
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="attackumb" src="../assets/images/charUmb.png">
+          </div>
+
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="defend" src="../assets/images/charProtect.png">
+          </div>
+
         <div style="display:none; margin-bottom: 25px;">
             <img id="source1" src="../assets/images/walkG.png">
         </div>
@@ -60,7 +72,18 @@ html,body{
         <div style="display:none; margin-bottom: 25px;">
             <img id="walkGif1" src="../assets/images/walkG.gif">
           </div>
+
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="attack1" src="../assets/images/charGuitarG.png">
+          </div>
       
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="defend1" src="../assets/images/charProtectG.png">
+          </div>
+
+          <div style="display:none; margin-bottom: 25px;">
+            <img id="attackumb1" src="../assets/images/charUmbG.png">
+          </div>
 </body>
 <script src = "http://localhost:8080/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> 
