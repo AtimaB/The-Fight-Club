@@ -6,6 +6,7 @@ export default (player, socket) => {
         if(e.keyCode === 40) dir = "down";
         if(e.keyCode === 37) dir = "left";
         if(e.keyCode === 38) dir = "up";
+        if(e.keyCode === 16) dir = "shift";
         if(!dir) {
             return;
         }
@@ -18,6 +19,7 @@ export default (player, socket) => {
         if(e.keyCode === 40) dir = "down";
         if(e.keyCode === 37) dir = "left";
         if(e.keyCode === 38) dir = "up";
+        if(e.keyCode === 16) dir = "shift";
         if(!dir) {
             return;
         }

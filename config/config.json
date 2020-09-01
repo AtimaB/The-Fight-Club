@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "",
+    "password": "webDev@2020",
     "database": "fightclub",
     "host": "127.0.0.1",
     "dialect": "mysql"
