@@ -18,14 +18,15 @@ canvas {
     background-repeat: no-repeat;
     /* background-size: auto; */
     /* width:100%; */
-    height:100%;
+    width:100%;
+    height:auto;
     background-size: cover;
 }
 
 html,body{
-   margin: 0;
-   background: rgb(241, 216, 207);
-   background-color: #f1f1f1;
+    margin: 0;
+    background: rgb(241, 216, 207);
+    background-color: #f1f1f1;
     display:flex;
     align-items:center;
     justify-content: center;
@@ -36,7 +37,7 @@ html,body{
     <body>
         <!--  style="display:none;" -->
         
-        <canvas id="game" width = "1700" height="900">  </canvas>
+        <canvas id="game" width = "1790" height="990">  </canvas>
         <div style="display:none; margin-bottom: 25px;">
             <img id="source" src="../assets/images/char1.png" style="margin-bottom:25px;">
           </div>
@@ -48,6 +49,12 @@ html,body{
           <div style="display:none; margin-bottom: 25px;">
             <img id="walkGif" src="../assets/images/walk.gif">
           </div>
+
+          <audio style="display:none;" id="sound">   
+            <source src="../assets/images/punch.mp3" />   
+            </audio> 
+
+          <iframe style="display:none;" id="walkGifIFrame" src="https://drive.google.com/file/d/12_tNw_eaVKuapyBSgBeF_d6_z6bTAohB/preview"></iframe>
 
           <div style="display:none; margin-bottom: 25px;">
             <img id="attack" src="../assets/images/charGuitar.png">
@@ -90,6 +97,7 @@ html,body{
 
  <!-- <script src = "https://cdn.socket.it/socket.io.1.4.5.js"></script> -->
  <script type="module" src="../assets/js/main.js"></script>
+ <script type="module" src="../assets/js/player.js"></script>
  <!-- <script src ="../assets/js/sample.js"></script> -->
 <!-- <script src="../assets/js/handleEvents.js"></script> -->
 
