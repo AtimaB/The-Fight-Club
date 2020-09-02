@@ -1,16 +1,23 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
-$(function() {
+$(function () {
+  $("#start").on("click", function (event) {
+    event.preventDefault();
 
-  $(".devourIt").on("click", function(event) {
-   
+    var newperson = {
+      name: $("#person-name").val().trim(),
+    };
+
+    $.ajax("/game", {
+      type: "GET",
+      // data: newperson
+    }).then(function () {
+      console.log("created new person");
+      // Reload the page to get the updated list
+      // location.reload();
+    });
   });
 
-  $("#submitBtn").on("click", function(event) {
-   
-  });
+  $("#submitBtn").on("click", function (event) {});
 
-  $("#ca").on("click", function(event){
-   
-
-});
+  $("#ca").on("click", function (event) {});
 });
