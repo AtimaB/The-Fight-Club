@@ -39,8 +39,8 @@ io.on("connection", function (socket) {
     if (sockets[obj.id]) {
       return;
     }
-    console.log("new-player");
-    console.log(obj);
+    // console.log("new-player");
+    // console.log(obj);
     players.push(obj);
     socket.broadcast.emit("new-player", obj);
   });
@@ -51,23 +51,23 @@ io.on("connection", function (socket) {
       return;
     }
     players[i] = obj;
-    console.log("update-player");
-    console.log(obj);
+    // console.log("update-player");
+    // console.log(obj);
     return socket.broadcast.emit("update-player", { obj });
   });
   socket.on("move-player", (dir) => {
-    console.log("move-player");
-    console.log(dir);
+    // console.log("move-player");
+    // console.log(dir);
     return socket.broadcast.emit("move-player", { id: socket.id, dir });
   });
   socket.on("stop-player", (dir) => {
-    console.log("stop-player");
-    console.log(dir);
+    // console.log("stop-player");
+    // console.log(dir);
     return socket.broadcast.emit("stop-player", { id: socket.id, dir });
   });
   socket.on("disconnect", function () {
     var i = players.findIndex((p) => p.id === socket.id);
-    console.log("remove " + i + " " + socket);
+    // console.log("remove " + i + " " + socket);
     players.splice(i, 1);
     return socket.broadcast.emit("remove-player", { id: socket.id });
   });

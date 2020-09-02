@@ -20,7 +20,7 @@ const socket = io(),
 
 let players = [];
 let count = 0;
-socket.on("init", ({ id, plyrs }) => {
+socket.on("init", ({ id, plyrs, playerIndex }) => {
   // const player = new Player({ id });
   // socket.emit()
   // writeToCanvas("Connected");
@@ -43,23 +43,28 @@ socket.on("init", ({ id, plyrs }) => {
   }
   let player = new Player({ id, w, h, img, x, y, type, playerCount});
   // console.log(plyrs.length);
+
+  // if(playerCount === 2){
+  //   socket.emit("disconnect", player);
+  // }
   controls(player, socket);
   socket.emit("new-player", player);
   //This especially runs on other machines...
   socket.on("new-player", (obj) => {
-    console.log("newplayer")
-    console.log(id)
+    // console.log("newplayer")
+    // console.log(id)
     players.push(new Player(obj));
   });
   players = plyrs.map((v) => new Player(v)).concat(player);
 
   socket.on("move-player", ({ id, dir }) => {
-    console.log("move-player");
-    console.log(id);
-    console.log(dir);
+    // console.log("move-player");
+    // console.log(id);
+    // console.log(dir);
     let p = players.find((v) => v.id === id);
-    console.log(p);
+    // console.log(p);
     p.move(dir);
+
     draw();
   });
   socket.on("update-player", ({ obj }) => {
@@ -79,7 +84,7 @@ socket.on("init", ({ id, plyrs }) => {
   });
   socket.on("remove-player", ({ id }) => {
     let i = players.findIndex((v) => v.id === id);
-    console.log("remove " + i);
+    // console.log("remove " + i);
     players.splice(i,1);
     draw();
   });
@@ -87,7 +92,7 @@ socket.on("init", ({ id, plyrs }) => {
   const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    players.forEach((v) => v.draw(ctx));
+    players.forEach((v) => v.draw(ctx, players));
 
     requestAnimationFrame(draw);
   };

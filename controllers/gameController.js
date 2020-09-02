@@ -17,9 +17,10 @@ router.get("/", function(req, res) {
    res.render("index", object);
 });
 
-router.post("/api/game", function(req, res) {
+router.get("/game", function(req, res) {
   console.log(__dirname);
- res.sendFile(pathForindexFile);
+  console.log(req.body.name);
+  res.sendFile(pathForindexFile);
  
 });
 
