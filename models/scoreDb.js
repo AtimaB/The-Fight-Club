@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes){
         }
     });
     Score.associate = function(models) {
-        Score.belongsTo(models.playerDb, {
+        Score.belongsTo(models.Player, {
             foreignKey: {
                 allowNull: false
             }
