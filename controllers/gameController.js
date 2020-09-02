@@ -10,17 +10,18 @@ var pathForindexFile = path.join(__dirname, '../views/index.html');
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
 
-  var object = {
-    highscore: 50
-  };
+  // var object = {
+  //   highscore: 50
+  // };
 
-   res.render("index", object);
+  //  res.render("index", object);
+  res.sendFile(pathForindexFile);
 });
 
 router.get("/game", function(req, res) {
-  console.log(__dirname);
-  console.log(req.body.name);
-  res.sendFile(pathForindexFile);
+  // console.log(__dirname);
+  // console.log(req.body.name);
+  // res.sendFile(pathForindexFile);
  
 });
 
