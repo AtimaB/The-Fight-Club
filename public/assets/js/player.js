@@ -1,6 +1,6 @@
 class Player {
 
-  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount }) {
+  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score=100}) {
     this.type = type;
     //  if (type == "image") {
     //    this.image = new Image();
@@ -13,16 +13,13 @@ class Player {
     this.h = h;
     this.x = x;
     this.y = y;
-    this.speed = 2;
+    this.speed = 1;
     this.isMoving = {};
-    
+    this.steps = 0;
+    this.score= score;
   }
   draw(ctx, players) {
 
-    var movingImg;
-
-    var player1= document.getElementById("player1");
-    var player2= document.getElementById("player2");
     if (this.playerCount % 2 === 0) {
 
       this.img = document.getElementById('source');
@@ -42,42 +39,61 @@ class Player {
      
     //  }
     if (this.isMoving.right) {
+
       this.x += this.speed;
+ 
+       this.steps++;
+      
+      let frame = Math.floor(this.steps/10)%3;
+      // console.log(frame);
       if (this.playerCount % 2 === 0) {
         // this.img = document.getElementById('moving');
-        this.img = document.getElementById('moving');
+        // this.x += this.speed;
+        this.img = document.getElementById('moving-'+frame);
        
 
       } else {
         // this.img = document.getElementById('moving1');
-        this.img = document.getElementById('moving1');
+        this.img = document.getElementById('moving1-'+frame);
 
       }
     }
     if (this.isMoving.left) {
       this.x -= this.speed;
+      this.steps++;
+      let frame = Math.floor(this.steps/10)%3;
       if (this.playerCount % 2 === 0) {
         // this.img = document.getElementById('moving');
-        this.img = document.getElementById('moving');
+        this.img = document.getElementById('moving-'+frame);
 
 
       } else {
         // this.img = document.getElementById('moving1');
-        this.img = document.getElementById('moving1');
+        this.img = document.getElementById('moving1-'+frame);
       }
     }
 
+    var count = 0;
+
     if (this.isMoving.up) {
-  
+      // var attack =false; 
       var myPunch = document.getElementById('sound');
       myPunch.play();
+      var crash;
       // this.isMoving.up.addEventListener(this.isMoving.up,  eventCollision);
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
-          var crash = this.crashWith(players[i]);
-          console.log("Guitar punch" +crash);
+        crash = this.crashWith(players[i]);
+        // console.log("Guitar punch" );
+      
+        if(crash) {
+          calcScore(players[i]);
+          return;
+        }
         }
       }
+      
+     
 
       if (this.playerCount % 2 === 0) {
         var crashVal =0; 
@@ -103,7 +119,7 @@ class Player {
     if (this.isMoving.shift) {
       var myPunch = document.getElementById('sound');
       myPunch.play();
-      
+
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
@@ -212,6 +228,12 @@ function isCollide(a, b, m=180) {
         ((a.x + a.w-m) < b.x) ||
         (a.x > (b.x + b.w-m))
     );
+}
+
+function calcScore(playerGotAttack){
+  playerGotAttack.score = playerGotAttack.score-2;
+  console.log("Player:" +playerGotAttack.playerCount+ "Score:" +  playerGotAttack.score);
+
 }
 
 export default Player;  

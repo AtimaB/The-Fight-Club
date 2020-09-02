@@ -9,17 +9,19 @@ $(function() {
      name: $("#person-name").val().trim(),
     };
 
-    $.ajax("/game", {
-      type: "GET",
-      // data: newperson
-    }).then(
-      function() {
-        console.log("created new person");
-        // Reload the page to get the updated list
-        // location.reload();
-      }
-    );
-  });
+    window.location = "/game#" +newperson;
+  //   $.ajax("/game", {
+  //     type: "GET",
+  //      data: newperson
+  //   }).then(
+  //     function() {
+  //       console.log("created new person");
+  //       // Reload the page to get the updated list
+  //       // location.reload();
+  //     }
+  //   );
+  // });
+});
 
   $("#submitBtn").on("click", function(event) {
    
@@ -30,3 +32,4 @@ $(function() {
 
 });
 });
+

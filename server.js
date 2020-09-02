@@ -27,15 +27,44 @@ const { log } = require("console");
 app.use(routes);
 const players = [];
 const sockets = {};
+
+
+var games = Array(100);
+for (let i = 0; i < 100; i++) {
+  games[i] = {players: 0 , pid: [0 , 0]};
+}
+
 io.on("connection", function (socket) {
   console.log("socket connected" + socket);
   // joinGame(socket);
   // socket.emit("position", position);
+  // var playerId =  socket.id;
+  var roomNo =  Math.floor((Math.random() * 100) + 1)
 
-  socket.emit("init", { id: socket.id, plyrs: players });
+  socket.emit("init", { id: socket.id, plyrs: players , roomId : roomNo});
+
+
+  //  socket.on('joined', ({roomId, id}) => {
+
+  //     //games[roomId] = {}
+  //     console.log("Room Id" +roomId);
+  //    if (games[roomId].players < 2) {
+
+  //        games[roomId].players++;
+  //        games[roomId].pid[games[roomId].players - 1] = id;
+  //    }
+  //    else{
+  //        socket.emit('full', roomId)
+  //        return;
+  //    }
+  //    console.log(games[roomId]);
+  //    players.push(games[roomId].players);
+    
+   
+  //  });
 
   //Listening for the new player... like server listening for the req from client
-  socket.on("new-player", (obj) => {
+  socket.on("new-player", obj => {
     if (sockets[obj.id]) {
       return;
     }
@@ -43,6 +72,11 @@ io.on("connection", function (socket) {
     // console.log(obj);
     players.push(obj);
     socket.broadcast.emit("new-player", obj);
+
+    // if(players.length >2){
+    //   socket.emit('full')
+    //   return;
+    // }
   });
 
   socket.on("update-player", (obj) => {
@@ -70,6 +104,14 @@ io.on("connection", function (socket) {
     // console.log("remove " + i + " " + socket);
     players.splice(i, 1);
     return socket.broadcast.emit("remove-player", { id: socket.id });
+
+
+    // for (let i = 0; i < 100; i++) {
+    //   if (games[i].pid[0] == playerId || games[i].pid[1] == playerId)
+    //       games[i].players--;
+    //   }
+    //   console.log(playerId + ' disconnected');
+
   });
 });
 

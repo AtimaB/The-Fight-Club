@@ -1,6 +1,6 @@
 // constructor function which can take in a series of values and create objects
 // with the properties contained inside
-function Character(name, strength, hitpoints) {
+function Character(name,hitpoints= 100) {
     this.name = name;
    
     this.strength = strength;
@@ -27,7 +27,7 @@ function Character(name, strength, hitpoints) {
   
   // method which takes in a second object and decreases their "hitpoints" by this character's strength
   Character.prototype.attack = function(character2) {
-      character2.hitpoints -= this.strength;
+      character2.hitpoints -= 5;
   };
   
   // method which increases this character's stats when called

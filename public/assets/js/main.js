@@ -20,10 +20,24 @@ const socket = io(),
 
 let players = [];
 let count = 0;
-socket.on("init", ({ id, plyrs, playerIndex }) => {
+
+var roomId =  Math.floor((Math.random() * 100) + 1)
+
+
+socket.on('full', function (msg) {
+  if(roomId == msg)
+      // window.location.assign(window.location.href+ 'full.html');
+      alert("Room is full");
+});
+
+
+
+socket.on("init", ({ id, plyrs, roomId}) => {
   // const player = new Player({ id });
   // socket.emit()
   // writeToCanvas("Connected");
+  // socket.emit('joined', {roomId, id});
+
   let type = "image";
   let w;
   let h;
@@ -41,6 +55,8 @@ socket.on("init", ({ id, plyrs, playerIndex }) => {
     y = 600;
    
   }
+
+ 
   let player = new Player({ id, w, h, img, x, y, type, playerCount});
   // console.log(plyrs.length);
 
@@ -48,7 +64,9 @@ socket.on("init", ({ id, plyrs, playerIndex }) => {
   //   socket.emit("disconnect", player);
   // }
   controls(player, socket);
+
   socket.emit("new-player", player);
+ 
   //This especially runs on other machines...
   socket.on("new-player", (obj) => {
     // console.log("newplayer")
