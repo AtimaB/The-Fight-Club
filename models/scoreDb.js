@@ -13,6 +13,7 @@ module.exports = function(sequelize, DataTypes){
             allowNull: false
         }
     });
+
     // Score.associate = function(models) {
     //     Score.belongsTo(models.Player, {
     //         foreignKey: {
@@ -20,5 +21,6 @@ module.exports = function(sequelize, DataTypes){
     //         }
     //     });
     // };
+
     return Score;
     }
