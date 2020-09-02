@@ -1,11 +1,25 @@
 <div class="container">
     <div class="row">
         <div class="col s12" id="highScore"><span class="flow-text">Highscore</span></div>
-        <p> {{}}</p>
+         <p> Player's name: {{}}</p><br>
+        <p>score: {{}}</p>
     </div>
     <div class="row">
-        <div class="col s12" id="yourScore"><span class="flow-text">Your Score</span></div>
-        <p> {{}}</p>
+        <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>{{ name}}</td>
+            <td>{{score}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
     <!-- start game button !-->

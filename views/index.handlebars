@@ -1,20 +1,33 @@
-<div class="row">
+<h1 id="header">Welcome to THE FIGHT CLUB</h1>
+	<!-- Rules!-->
+	<div class="row" style="margin: 20px;">
 
-	<div class="col s12 m12 l12">
-		<div class="card-content">
-			<h1 class="card-title" style="font-size: 40px;  text-align: center;">Welcome to THE-FIGHT_CLUB</h1>
-			<p style="font-size: 25px;  text-align: center;">Welcome to Eat-Da-Burger... <br>Highscore:{{ highscore }}
-			</p>
+		<p style="font-size: 18px; margin: 30px;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod ducimus
+			consequatur repudiandae et impedit excepturi mollitia quis, exercitationem hic quos blanditiis, laborum
+			minima eum cupiditate voluptates a, veritatis reiciendis eius? Lorem ipsum dolor sit amet consectetur
+			adipisicing elit. Quam laborum pariatur cupiditate obcaecati. Commodi nostrum tempora quae pariatur
+			molestias necessitatibus mollitia sunt est, consectetur culpa ratione ipsa nisi et eum.
+			<br>Highscore:{{ highscore }}
+		</p>
+		<div class="col s4 m4 l4 offset-s4" style="margin-top: 40px;">
+			<!-- start game button !-->
+			<textarea id="person-name" class="materialize-textarea" style="background-color: white;" name="name"
+				value="" id="enter_text"></textarea>
+			<button type="submit" class="start btn-large col s4 offset-s4" id="start"><i class="fas fa-play"></i>
+				Play</button>
+			<!-- Image!-->
+			<div class="row" style="float: right; margin-top: 80px;">
+				<div class=" col s12 m6 l6">
+					<img src="players.png" style="width: 80px; height: 150px;" alt="players">
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- start game button !-->
-	<div>
-		<textarea id="person-name" class="materialize-textarea" style="background-color: white;" name="name" value=""
-			id="enter_text"></textarea>
-		<label for="textarea1"> Put your name here!</label>
-		<button type="submit" class="start btn-large col s4 offset-s4" id="start">Start...</button>
-	</div>
-</div>
+
+	<!-- Audio !-->
+	<audio controls id= "audio1">
+		<source src="fightclub.mp3" type="audio/mpeg" onloadeddata="setHalfVolume()">
+	</audio>
 
 
 <!-- logo effect !-->
