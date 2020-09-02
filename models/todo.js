@@ -1,7 +1,20 @@
 module.exports = function (sequelize, DataTypes) {
   var fightclub = sequelize.define("fightclub", {
-    text: DataTypes.STRING,
-    complete: DataTypes.BOOLEAN,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   });
+
+  fightclub.associate = function (models) {
+    // We're saying that a Post should belong to an Author
+    // A Post can't be created without an Author due to the foreign key constraint
+    fightclub.belongsTo(models.Author, {
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+
   return fightclub;
 };
