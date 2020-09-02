@@ -2,15 +2,15 @@
 $(function() {
 
 
-  $("#submit").on("click", function(event){
+  $("#start").on("click", function(event){
     event.preventDefault();
 
     var newperson = {
      name: $("#person-name").val().trim(),
     };
 
-    $.ajax("/api/game", {
-      type: "POST",
+    $.ajax("/game", {
+      type: "GET",
       // data: newperson
     }).then(
       function() {
