@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" href="/public/assets/css/main.css" type="text/css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+		integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+</head>
+
+<body>
+	<div class="container" id="header">
+		<h1>Welcome to THE FIGHT CLUB</h1>
+	</div>
+	<!-- Rules!-->
+	<div class="row" style="margin: 20px;">
+		<div class="col s6 offset-s6">
+
+			<p style="font-size: 18px; margin: 30px;">Movement:
+				Left arrow = move left & right arrow = move right <br> Attack/Defend <br> Attacks: Up arrow = guitar
+				attack & Shift = umbrella attack & Down arrow = defend against attacks
+				<br>Highscore:{{ highscore }}
+			</p>
+		</div>
+		<div class="col s6 offset-s6" style="margin-top: 40px;">
+			<!-- start game button !-->
+			<textarea id="person-name" class="materialize-textarea" style="background-color: white;" name="name"
+				value="" id="enter_text"></textarea>
+			<button type="submit" class="start btn-large col s4 offset-s4" id="start"><i class="fas fa-play"></i>
+				Play</button>
+			<!-- Image!-->
+			<!-- <div class="row" style="float: right; margin-top: 80px;">
+				<div class=" col s12 m6 l6">
+					<img src="players.png" style="width: 80px; height: 150px;" alt="players">
+				</div>
+			</div> -->
+		</div>
+	</div>
+
+	<!-- Audio !-->
+	<audio controls id="audio1">
+		<source src="/public/assets/images/fightclub.mp3" type="audio/mpeg" onloadeddata="setHalfVolume()">
+	</audio>
+
+	<!-- Canvas !-->
+	<canvas id="scene"></canvas>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+
+	<script>
+		var canvas = document.getElementById('scene');
+		var ctx = canvas.getContext("2d");
+		// ctx.moveTo(0, 0);
+		var particles = [];
+
+		var png = new Image();
+		png.src = "/public/assets/images/logoSmall_s.png";
+		png.onload = drawImg;
+
+		function drawImg() {
+			canvas.width = png.width * 6;
+			canvas.height = png.height * 6;
+
+			ctx.drawImage(png, 0, 0);
+
+			var data = ctx.getImageData(0, 0, png.width, png.height);
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			for (var y = 0; y < data.height; y++) {
+				for (var x = 0; x < data.width; x++) {
+					var p = (x + y * data.width) * 4;
+
+					if (data.data[p + 3] > 129) {
+						var particle = {
+							x0: x,
+							y0: y,
+							x1: png.width / 3,
+							y1: png.height / 3,
+							speed: Math.random() * 1 + 1,
+							color: `rgb(${data.data[p]},
+										${data.data[p + 1]},
+										${data.data[p + 2]})`
+						}
+						TweenMax.to(particle, particle.speed, {
+							x1: particle.x0,
+							y1: particle.y0,
+							delay: y / 40,
+							ease: Elastic.easeOut
+						})
+						particles.push(particle)
+					}
+				}
+			}
+			requestAnimationFrame(render);
+		}
+
+		var render = function () {
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+			for (var i = 0; i < particles.length; i++) {
+				var particle = particles[i];
+				ctx.fillStyle = particle.color;
+				ctx.fillRect(particle.x1 * 3, particle.y1 * 3, 3, 3);
+			}
+			requestAnimationFrame(render);
+		};
+
+	</script>
+
+<script src="/public/assets/js/handleEvents.js"></script>
+
+	<!-- Audio Valume !-->
+	<script>
+		function setHalfVolume() {
+			var myAudio = document.getElementById("audio1");
+			myAudio.volume = 0.5;
+		}
+	</script>
+</body>
+
+</html>
