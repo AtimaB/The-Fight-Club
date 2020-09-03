@@ -1,5 +1,5 @@
 module.exports = function (sequelize, DataTypes) {
-  var Player = sequelize.define("Post", {
+  var Player = sequelize.define("Player", {
     name: {
       type: DataTypes.TEXT,
       allowNull: false,
