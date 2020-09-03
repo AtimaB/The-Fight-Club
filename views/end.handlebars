@@ -1,13 +1,35 @@
 <div class="container">
-    <div class="row">
+    <div class="row" style="text-align: center; padding: 30px;">
         <div class="col s12" id="highScore"><span class="flow-text">Highscore</span></div>
-        <p> {{}}</p>
+        <p> Player's name: {{this.name}}</p><br>
+        <p>score: {{this.}}</p>
     </div>
     <div class="row">
-        <div class="col s12" id="yourScore"><span class="flow-text">Your Score</span></div>
-        <p> {{}}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{#each Player}}
+                <tr>
+                    <td>{{this.id }}</td>
+                    <td>{{this.name}}</td>
+                    <td>{{this.score}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
     </div>
 
     <!-- start game button !-->
-   <button type="submit" class="start btn-large col s4 offset-s4" id="start">Play Again!</button>
+    <div class="row">
+        <div class="col s6 m6 l6 offset-s6" style="margin-top: 40px;">
+            <button type="submit" class="start btn-large col s6" id="start" >Play Again!</button>
+        </div>
+    </div>
 </div>

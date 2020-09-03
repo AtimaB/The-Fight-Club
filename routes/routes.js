@@ -11,12 +11,11 @@ var pathForWelcomeFile = path.join(__dirname, '../views/welcome.html');
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
 
-  // var object = {
-  //   highscore: 50
-  // };
+  var object = {
+    highscore: 50
+  };
 
-  //  res.render("index", object);
-  res.sendFile(pathForWelcomeFile);
+   res.sendFile(pathForWelcomeFile);
 });
 
 router.get("/game", function(req, res) {

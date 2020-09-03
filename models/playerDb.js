@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Player = sequelize.define("Post", {
+  var Player = sequelize.define("Player", {
       name: {
           type: DataTypes.TEXT,
           allowNull: false,
@@ -9,12 +9,10 @@ module.exports = function(sequelize, DataTypes) {
               }
           }
       },
+      score: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
   });
-  Player.associate = function(models) {
-    Player.hasMany(models.Score, {
-      onDelete: "cascade"
-    });
-  };
-
   return Player;
 };

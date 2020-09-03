@@ -21,10 +21,16 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Import routes and give the server access to them.
-var routes = require("./controllers/gameController.js");
+// var routes = require("./controllers/gameController.js");
 const { log } = require("console");
 
+// app.use(routes);
+
+// Requiring our routes
+var routes = require("./routes/routes.js");
+
 app.use(routes);
+
 const players = [];
 const sockets = {};
 
