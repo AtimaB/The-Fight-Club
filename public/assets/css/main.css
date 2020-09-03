@@ -1,20 +1,20 @@
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100vh;
-	background-image: url("/assets/images/background.jpg");
-	background-repeat: no-repeat;
-    background-attachment: fixed;
-	background-size: cover;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-	position: fixed;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+  background-image: url("/assets/images/background.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  position: fixed;
 }
 canvas {
 	/* position: fixed; */
@@ -31,12 +31,11 @@ h1 {
 	font-size: 40px;
 	text-align: right;
 	/* margin-top: 200px; */
-
 }
 
 h2 {
-	font-size: 30px;
-	text-align: center;
+  font-size: 30px;
+  text-align: center;
 }
 
 #form {
@@ -44,15 +43,15 @@ h2 {
 }
 
 #start {
-	background-color: rgb(16, 129, 221);
-	border-radius: 20px 0px 20px 0px;
-	font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  background-color: rgb(16, 129, 221);
+  border-radius: 20px 0px 20px 0px;
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
 #start:hover {
-	background-color: rgb(65, 225, 247);
+  background-color: rgb(65, 225, 247);
 }
 
 th {
-	font-size: 20px;
+  font-size: 20px;
 }
