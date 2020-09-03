@@ -26,12 +26,13 @@ class Player {
       this.img = document.getElementById("source1");
     }
 
-    for (var i = 0; i < players.length; i++) {
-      if (this.id !== players[i].id && isCollide(this, players[i])) {
-        var crash = this.crashWith(players[i]);
-        console.log("Crash" + crash);
-      }
-    }
+    //  for(var i=0; i<players.length; i++){
+    //    if(this.id !== players[i].id && isCollide(this, players[i])) {
+    //      var crash = this.crashWith(players[i]);
+    //      console.log("Touch" +crash);
+    //    }
+
+    //  }
     if (this.isMoving.right) {
       this.x += this.speed;
       if (this.playerCount % 2 === 0) {
@@ -55,29 +56,23 @@ class Player {
 
     if (this.isMoving.up) {
       var myPunch = document.getElementById("sound");
+      myPunch.play();
       // this.isMoving.up.addEventListener(this.isMoving.up,  eventCollision);
+      for (var i = 0; i < players.length; i++) {
+        if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
+          var crash = this.crashWith(players[i]);
+          console.log("Guitar punch" + crash);
+        }
+      }
+
       if (this.playerCount % 2 === 0) {
         var crashVal = 0;
         this.img = document.getElementById("attack");
-        // var otherObj = document.getElementById('attack1');
-        // this.img.onclick = eventCollision;
-        // document.getElementById('attack1').style.display = "block";
-        // var otherObjCoordinates = getBoundingClientRect();
-        // console.log(otherObjCoordinates);
-        // var crash = this.crashWith(otherobj);
-        // console.log(crash);
-        // if(crash){
-        //   crashVal++;
-        //   console.log(crashVal);
-        // }
-        // myMusic = new Sound("../public/assets/images/punch.mp3");
-        myPunch.play();
       } else {
         this.img = document.getElementById("attack1");
         // this.img.onclick = eventCollision;
         // document.getElementById('sound');
         // myMusic = new Sound("../public/assets/images/punch.mp3");
-        myPunch.play();
       }
     }
 
@@ -90,6 +85,16 @@ class Player {
     }
 
     if (this.isMoving.shift) {
+      var myPunch = document.getElementById("sound");
+      myPunch.play();
+
+      for (var i = 0; i < players.length; i++) {
+        if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
+          var crash = this.crashWith(players[i]);
+          console.log("Umbrella punch" + crash);
+        }
+      }
+
       if (this.playerCount % 2 === 0) {
         this.img = document.getElementById("attackumb");
       } else {
@@ -196,8 +201,7 @@ class Player {
   // }
 }
 
-const m = 180;
-function isCollide(a, b) {
+function isCollide(a, b, m = 180) {
   return !(a.x + a.w - m < b.x || a.x > b.x + b.w - m);
 }
 
