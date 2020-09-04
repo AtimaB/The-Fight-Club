@@ -1,6 +1,8 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
+
 $(function () {
   $("#start").on("click", function (event) {
+
     event.preventDefault();
 
     var newperson = {
