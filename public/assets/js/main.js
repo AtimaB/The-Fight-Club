@@ -71,7 +71,8 @@ window.onload = function () {
       }
       players[i].x = obj.x;
       players[i].y = obj.y;
-
+      players[i].score = obj.score;
+      players[i].steps = obj.steps;
       draw();
     });
     console.log(players);
@@ -85,11 +86,15 @@ window.onload = function () {
       players.splice(i, 1);
       draw();
     });
+    const onAttack = (attacked) => {
+      socket.emit("update-player", attacked);
+
+    }
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      players.forEach((v) => v.draw(ctx, players));
+      players.forEach((v) => v.draw(ctx, players, onAttack));
 
       requestAnimationFrame(draw);
     };
