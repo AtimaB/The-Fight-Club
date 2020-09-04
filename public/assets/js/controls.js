@@ -10,6 +10,7 @@ export default (player, socket) => {
       return;
     }
     player.move(dir);
+    socket.emit("update-player", player);
   };
 
   document.onkeyup = (e) => {
