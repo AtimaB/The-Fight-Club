@@ -13,17 +13,21 @@ $(function () {
        type: "POST",
        data: newperson
      }).then(
-       function() {
+       function(res) {
          console.log("created new person");
+         console.log(res);
          // Reload the page to get the updated list
         //  window.location = "/game";
-        window.location.replace("/game");
+        window.location.replace("/game#" +res.id);
+
        }
      );
    });
+
+   
    $("#again").on("click", function (event) {
     event.preventDefault();
-    return res.redirect("/game");
+    return res.redirect("/");
     // window.location("/game")
    });
 });

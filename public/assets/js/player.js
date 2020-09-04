@@ -49,6 +49,23 @@ class Player {
     
          for (var i = 0; i < lines.length; i++)
            ctx.fillText(lines[i], x, y + i * lineheight);
+
+          //  window.location = "/api/score#" +() +this.score;
+           $.ajax("/api/game", {
+             type: "PUT",
+             data: {id: window.location.hash.substr(1), score: this.score},
+
+           }).then(
+             function() {
+               //console.log("created new person");
+                //Reload the page to get the updated list
+              
+              window.location.replace("/score/" +window.location.hash.substr(1) );
+     
+             }
+           );
+       
+      
     }
       // // let frame = Math.floor(this.die/10)%3;
       // if(playerNo === 1){
