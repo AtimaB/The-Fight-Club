@@ -1,5 +1,6 @@
 class Player {
-  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount }) {
+
+  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score=100}) {
     this.type = type;
     //  if (type == "image") {
     //    this.image = new Image();
@@ -12,14 +13,18 @@ class Player {
     this.h = h;
     this.x = x;
     this.y = y;
-    this.speed = 2;
+    this.speed = 1;
     this.isMoving = {};
+    this.steps = 0;
+    this.score= score;
+    this.die=0;
   }
   draw(ctx, players) {
-    var movingImg;
+        
+   var playerNo;
+  
+   var score;
 
-    var player1 = document.getElementById("player1");
-    var player2 = document.getElementById("player2");
     if (this.playerCount % 2 === 0) {
       this.img = document.getElementById("source");
     } else {
@@ -34,46 +39,78 @@ class Player {
 
     //  }
     if (this.isMoving.right) {
+
       this.x += this.speed;
+ 
+       this.steps++;
+      
+      let frame = Math.floor(this.steps/10)%3;
+      // console.log(frame);
       if (this.playerCount % 2 === 0) {
         // this.img = document.getElementById('moving');
-        this.img = document.getElementById("moving");
+        // this.x += this.speed;
+        this.img = document.getElementById('moving-'+frame);
+       
+
       } else {
         // this.img = document.getElementById('moving1');
-        this.img = document.getElementById("moving1");
+        this.img = document.getElementById('moving1-'+frame);
+
       }
     }
     if (this.isMoving.left) {
       this.x -= this.speed;
+      this.steps++;
+      let frame = Math.floor(this.steps/10)%3;
       if (this.playerCount % 2 === 0) {
         // this.img = document.getElementById('moving');
-        this.img = document.getElementById("moving");
+        this.img = document.getElementById('moving-'+frame);
+
+
       } else {
         // this.img = document.getElementById('moving1');
-        this.img = document.getElementById("moving1");
+        this.img = document.getElementById('moving1-'+frame);
       }
     }
 
+
     if (this.isMoving.up) {
-      var myPunch = document.getElementById("sound");
+   
+      var myPunch = document.getElementById('sound');
       myPunch.play();
-      // this.isMoving.up.addEventListener(this.isMoving.up,  eventCollision);
-      for (var i = 0; i < players.length; i++) {
-        if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
-          var crash = this.crashWith(players[i]);
-          console.log("Guitar punch" + crash);
+      var crash;
+      this.die++;
+     
+      for(var i=0; i<players.length; i++){
+        if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
+        crash = this.crashWith(players[i]);
+    
+        if(crash) {
+
+         players[i].score = players[i].score-2;
+         console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+         playerNo = (players[i].playerCount+1);
+         score = players[i].score
+        //  playerNo =  (players[i].playerCount+1);
+        //   playScore = players[i].score;
+        //  if(playerNo === 1){
+        //  txt = "Player : "+(playerNo)+"\n Score : "+playScore+"";
+        //  }else if(playerNo === 2){
+        //    txt1 = "Player : "+(playerNo)+"\n Score : "+playScore+"";
+        //  }
+  
+        }
         }
       }
 
       if (this.playerCount % 2 === 0) {
-        var crashVal = 0;
+        // var crashVal = 0;
         this.img = document.getElementById("attack");
       } else {
         this.img = document.getElementById("attack1");
-        // this.img.onclick = eventCollision;
-        // document.getElementById('sound');
-        // myMusic = new Sound("../public/assets/images/punch.mp3");
+      
       }
+
     }
 
     if (this.isMoving.down) {
@@ -88,10 +125,18 @@ class Player {
       var myPunch = document.getElementById("sound");
       myPunch.play();
 
-      for (var i = 0; i < players.length; i++) {
-        if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
+      for(var i=0; i<players.length; i++){
+        if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
           console.log("Umbrella punch" + crash);
+
+          if(crash) {
+
+            players[i].score = players[i].score-2;
+            console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+            playerNo = (players[i].playerCount+1);
+            score = players[i].score
+          }
         }
       }
 
@@ -114,26 +159,75 @@ class Player {
 
     // ctx.beginPath();
 
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+    if(score<0){
 
-    ctx.font = "50px Arial";
-    // console.log(ctx);
-    var txt = "Player 1\n Score : \n Lives  : ";
-    var x = 100;
-    var y = 80;
+    // let frame = Math.floor(this.die/10)%3;
+    if(playerNo === 1){
+    console.log("Player " +playerNo+" is dead"); // is working
+    this.img = document.getElementById("dieR3");
+    // return window.location = "/api/game#" +players[i] +score;
+
+    }else {
+      console.log("Player " +playerNo+" is dead"); //is working
+      this.img = document.getElementById("dieG3");
+      // return window.location = "/api/game#" +players[i] +score;
+
+    }
+
+   
+    console.log("Oh no I'm dead");
+
+    ctx.font = "100px Arial";
+    
+    var txt = "Game Over";
+    var x = 880;
+    var y = 450;
     var lineheight = 55;
     var lines = txt.split("\n");
+
 
     for (var i = 0; i < lines.length; i++)
       ctx.fillText(lines[i], x, y + i * lineheight);
 
-    var txt1 = "Player 2\n Score : \n Lives  : ";
-    var x1 = 1400;
-    var y1 = 80;
-    var lines1 = txt1.split("\n");
+      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
 
-    for (var i = 0; i < lines1.length; i++)
-      ctx.fillText(lines1[i], x1, y1 + i * lineheight);
+
+  }
+
+    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+      var txt;
+      var txt1;
+      ctx.font = "50px Arial";
+      //  console.log(ctx);
+      if(playerNo=== 1){
+       txt = "Player: " +playerNo+ "\n Score: " + score;
+       }else{
+        txt = "Player: " +1+ "\n Score: " + this.score;
+      }
+      var x = 100;
+      var y = 80;
+      var lineheight = 55;
+      var lines = txt.split("\n");
+
+      for (var i = 0; i < lines.length; i++)
+        ctx.fillText(lines[i], x, y + i * lineheight);
+
+        if(playerNo === 2){
+           txt1 = "Player: " +playerNo+ "\n Score: " + score;
+           }else{
+            txt1 = "Player: " +2+ "\n Score: " + this.score;
+          }
+      var x1 = 1400;
+      var y1 = 80;
+      var lines1 = txt1.split("\n");
+
+      for (var i = 0; i < lines1.length; i++)
+        ctx.fillText(lines1[i], x1, y1 + i * lineheight);
+
+
+       //if(end){
+      // ctx.
+      // }
   }
 
   move(dir) {
@@ -205,4 +299,37 @@ function isCollide(a, b, m = 180) {
   return !(a.x + a.w - m < b.x || a.x > b.x + b.w - m);
 }
 
-export default Player;
+function printScore(player, ctx){
+  // return;
+           // affectedPerson = players[i];
+           ctx.font = "50px Arial";
+           // console.log(ctx);
+           var txt =  ctx.font = "50px Arial";
+           // console.log(ctx);
+           var txt =   player+"\n Score : "+  player.score+"";
+           var x = 100;
+           var y = 80;
+           var lineheight = 55;
+           var lines = txt.split("\n");
+ 
+           for (var i = 0; i < lines.length; i++)
+             ctx.fillText(lines[i], x, y + i * lineheight);
+ 
+           var txt1 =   player+"\n Score : "+  player.score+"";
+           var x1 = 1400;
+           var y1 = 80;
+           var lines1 = txt1.split("\n");
+ 
+           for (var i = 0; i < lines1.length; i++)
+             ctx.fillText(lines1[i], x1, y1 + i * lineheight);
+ 
+     }
+
+function calcScore(playerGotAttack){
+  playerGotAttack.score = playerGotAttack.score-2;
+  console.log("Player:" +(playerGotAttack.playerCount+1)+ "Score:" +  playerGotAttack.score);
+  return playerGotAttack.score;
+
+}
+
+export default Player;  

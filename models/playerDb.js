@@ -11,7 +11,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     score: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      // allowNull: false,
     },
   });
   return Player;

@@ -2,14 +2,16 @@
 <html lang="en">
 
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/assets/css/main.css" type="text/css" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+   
 </head>
 
 <body>
@@ -40,11 +42,19 @@
                 <li>3. scvtecjlajox,kol,</li>
             </ul>
             <p style="font-size: 20px; text-align: center; margin-bottom: 16px;">Before you begin the game.<br>Please
-                put your name below and then click "Let's Fight!".</p>
-                <!-- start game button !-->
-                <div id="form" class="offset-s1 col s4 ">
-                <textarea id="person-name" class="materialize-textarea z-depth-4" style="background-color: white;"></textarea>
-                <button type="submit" class="start btn-large col s4 offset-s4 z-depth-4" id="start">Let's Fight!</button>
+                put your name below and then click "Let's Fight".</p>
+  
+            </p>
+            <!-- id="enter_text" -->
+            <div class="container">
+                <div class="row">
+                    <div class="col s12">
+                        <!-- start game button !-->
+                        <textarea id="textarea1" class="materialize-textarea" style="background-color: white;"
+                            name="name" value="" ></textarea>
+                        <button type="submit" class="submit btn-large col s4 offset-s4" id="submitBtn">Let's Fight!</button>
+                        <!-- <img src="/public/assets/images/players.png" style="width: 80px; height: 130px; margin-left: 30px;" alt="players"> -->
+                    </div>
                 </div>
         </div>
     </div>
@@ -58,78 +68,85 @@
     </audio>
 
     <!-- Canvas !-->
-    <canvas id="scene"></canvas>
+    <canvas id="scene"></canvas> 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 
     <script>
-        var canvas = document.getElementById('scene');
-        var ctx = canvas.getContext("2d");
-        // ctx.moveTo(0, 0);
-        var particles = [];
 
-        var png = new Image();
-        png.src = "/assets/images/logoSmall_s.png";
-        png.onload = drawImg;
+         var canvas = document.getElementById('scene');
+         var ctx = canvas.getContext("2d");
+          ctx.moveTo(0, 0);
+         var particles = [];
 
-        function drawImg() {
-            canvas.width = png.width * 6;
-            canvas.height = png.height * 6;
+         var png = new Image();
+         png.src = "/assets/images/logoSmall_s.png";
+         png.onload = drawImg;
 
-            ctx.drawImage(png, 0, 0);
+         function drawImg() {
+             canvas.width = png.width * 6;
+             canvas.height = png.height * 6;
 
-            var data = ctx.getImageData(0, 0, png.width, png.height);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+             ctx.drawImage(png, 0, 0);
 
-            for (var y = 0; y < data.height; y++) {
-                for (var x = 0; x < data.width; x++) {
-                    var p = (x + y * data.width) * 4;
+             var data = ctx.getImageData(0, 0, png.width, png.height);
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-                    if (data.data[p + 3] > 129) {
-                        var particle = {
-                            x0: x,
-                            y0: y,
-                            x1: png.width / 3,
-                            y1: png.height / 3,
-                            speed: Math.random() * 1 + 1,
-                            color: `rgb(${data.data[p]},
-										${data.data[p + 1]},
-										${data.data[p + 2]})`
-                        }
-                        TweenMax.to(particle, particle.speed, {
-                            x1: particle.x0,
-                            y1: particle.y0,
-                            delay: y / 40,
-                            ease: Elastic.easeOut
-                        })
-                        particles.push(particle)
-                    }
-                }
-            }
-            requestAnimationFrame(render);
-        }
+             for (var y = 0; y < data.height; y++) {
+                 for (var x = 0; x < data.width; x++) {
+                     var p = (x + y * data.width) * 4;
 
-        var render = function () {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (var i = 0; i < particles.length; i++) {
-                var particle = particles[i];
-                ctx.fillStyle = particle.color;
-                ctx.fillRect(particle.x1 * 3, particle.y1 * 3, 3, 3);
-            }
-            requestAnimationFrame(render);
-        };
+                     if (data.data[p + 3] > 129) {
+                         var particle = {
+                             x0: x,
+                             y0: y,
+                             x1: png.width / 3,
+                             y1: png.height / 3,
+                             speed: Math.random() * 1 + 1,
+                             color: `rgb(${data.data[p]},
+		 								${data.data[p + 1]},
+		 								${data.data[p + 2]})`
+                         }
+                         TweenMax.to(particle, particle.speed, {
+                             x1: particle.x0,
+                             y1: particle.y0,
+                             delay: y / 40,
+                             ease: Elastic.easeOut
+                         })
+                         particles.push(particle)
+                     }
+                 }
+           }
+             requestAnimationFrame(render);
+         }
 
-    </script>
+         var render = function () {
+             ctx.clearRect(0, 0, canvas.width, canvas.height);
+             for (var i = 0; i < particles.length; i++) {
+                 var particle = particles[i];
+                 ctx.fillStyle = particle.color;
+                 ctx.fillRect(particle.x1 * 3, particle.y1 * 3, 3, 3);
+             }
+             requestAnimationFrame(render);
+         };
 
-    <script src="/assets/js/handleEvents.js"></script>
-
-    <!-- Audio Valume !-->
-    <script>
         function setHalfVolume() {
             var myAudio = document.getElementById("audio1");
             myAudio.volume = 0.5;
         }
+
     </script>
+
+    <!--Audio Valume
+      <script>
+        function setHalfVolume() {
+            var myAudio = document.getElementById("audio1");
+            myAudio.volume = 0.5;
+        }
+      </script>--> 
+     
+<script src="../assets/js/handleEvents.js"></script>
+
 </body>
 
 </html>
