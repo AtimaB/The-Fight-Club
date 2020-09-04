@@ -1,29 +1,34 @@
+var express = require("express");
+var path = require("path");
+var router = express.Router();
 var db = require("../models");
-// var passport = require("../config/passport");
 
+var pathForindexFile = path.join(__dirname, '../views/index.html');
+var pathForWelcomeFile = path.join(__dirname, '../views/welcome.html');
+// Import the model (burger.js) to use its database functions.
+// var burger = require("../models/.js");
+
+// Create all our routes and set up logic within those routes where required.
 module.exports = function(app) {
-  
-  app.post("", function(req, res) {
-    db.User.create({
-      
-    })
-      .then(function() {
-        // res.redirect(307, "/api/login");
-      })
-      .catch(function(err) {
-       
+
+    //console.log(__dirname);
+    //console.log(req.body.name);
+
+    router.post("/api/game", function(req,res) {
+        db.Player.create({
+           name:  req.body.name,
+           score : 100
+        }).then(function () {
+            res.redirect(307, "/game");
+        })
+        .catch(function(err) {
+          res.status(401).json(err);
+        });
       });
-  });
 
-  // Route for logging user out
-  app.get("", function(req, res) {
-    // req.logout();
-    // res.redirect("/");
-  });
-
-  // Route for getting some data about our user to be used client side
-  app.get("", function(req, res) {
- 
     
-  });
-};
+
+router.put("/api/game/:id", function (req, res) {});
+    }
+
+

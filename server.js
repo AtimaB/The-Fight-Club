@@ -28,8 +28,11 @@ const { log } = require("console");
 
 // Requiring our routes
 var routes = require("./routes/routes.js");
-
+// require("./routes/api-routes.js")(app);
 app.use(routes);
+
+
+// app.use(routes);
 
 const players = [];
 const sockets = {};

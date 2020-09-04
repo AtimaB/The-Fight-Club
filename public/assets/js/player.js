@@ -17,26 +17,26 @@ class Player {
     this.isMoving = {};
     this.steps = 0;
     this.score= score;
+    this.die=0;
   }
   draw(ctx, players) {
+        
+   var playerNo;
+  
+   var score;
 
     if (this.playerCount % 2 === 0) {
-
-      this.img = document.getElementById('source');
-
+      this.img = document.getElementById("source");
     } else {
-
-      this.img = document.getElementById('source1');
-
+      this.img = document.getElementById("source1");
     }
-
 
     //  for(var i=0; i<players.length; i++){
     //    if(this.id !== players[i].id && isCollide(this, players[i])) {
     //      var crash = this.crashWith(players[i]);
     //      console.log("Touch" +crash);
     //    }
-     
+
     //  }
     if (this.isMoving.right) {
 
@@ -73,72 +73,82 @@ class Player {
       }
     }
 
-    var count = 0;
 
     if (this.isMoving.up) {
-      // var attack =false; 
+   
       var myPunch = document.getElementById('sound');
       myPunch.play();
       var crash;
-      // this.isMoving.up.addEventListener(this.isMoving.up,  eventCollision);
+      this.die++;
+     
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
         crash = this.crashWith(players[i]);
-        // console.log("Guitar punch" );
-      
+    
         if(crash) {
-          calcScore(players[i]);
-          return;
+
+         players[i].score = players[i].score-2;
+         console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+         playerNo = (players[i].playerCount+1);
+         score = players[i].score
+        //  playerNo =  (players[i].playerCount+1);
+        //   playScore = players[i].score;
+        //  if(playerNo === 1){
+        //  txt = "Player : "+(playerNo)+"\n Score : "+playScore+"";
+        //  }else if(playerNo === 2){
+        //    txt1 = "Player : "+(playerNo)+"\n Score : "+playScore+"";
+        //  }
+  
         }
         }
       }
-      
-     
 
       if (this.playerCount % 2 === 0) {
-        var crashVal =0; 
-        this.img = document.getElementById('attack');
-       
+        // var crashVal = 0;
+        this.img = document.getElementById("attack");
       } else {
-        this.img = document.getElementById('attack1');
-        // this.img.onclick = eventCollision;
-        // document.getElementById('sound');
-        // myMusic = new Sound("../public/assets/images/punch.mp3");
+        this.img = document.getElementById("attack1");
+      
       }
+
     }
 
     if (this.isMoving.down) {
       if (this.playerCount % 2 === 0) {
-        this.img = document.getElementById('defend');
-
+        this.img = document.getElementById("defend");
       } else {
-        this.img = document.getElementById('defend1');
+        this.img = document.getElementById("defend1");
       }
     }
 
     if (this.isMoving.shift) {
-      var myPunch = document.getElementById('sound');
+      var myPunch = document.getElementById("sound");
       myPunch.play();
 
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
-          console.log("Umbrella punch" +crash);
+          console.log("Umbrella punch" + crash);
+
+          if(crash) {
+
+            players[i].score = players[i].score-2;
+            console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+            playerNo = (players[i].playerCount+1);
+            score = players[i].score
+          }
         }
       }
 
       if (this.playerCount % 2 === 0) {
-        this.img = document.getElementById('attackumb');
-       
-
+        this.img = document.getElementById("attackumb");
       } else {
-        this.img = document.getElementById('attackumb1');
-       
+        this.img = document.getElementById("attackumb1");
       }
     }
 
-    this.x = Math.min(this.x, 1700 - this.w)
-    this.y = Math.min(this.y, 1000 - this.h)
+    this.x = Math.min(this.x, 1700 - this.w);
+    this.y = Math.min(this.y, 1000 - this.h);
 
     if (this.x < 0) {
       this.x = 0;
@@ -149,30 +159,77 @@ class Player {
 
     // ctx.beginPath();
 
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
- 
-    ctx.font = '50px Arial';
-    // console.log(ctx);
-    var txt = 'Player 1\n Score : \n Lives  : ';
-    var x = 100;
-    var y = 80;
+    if(score<0){
+
+    // let frame = Math.floor(this.die/10)%3;
+    if(playerNo === 1){
+    console.log("Player " +playerNo+" is dead"); // is working
+    this.img = document.getElementById("dieR3");
+    // return window.location = "/api/game#" +players[i] +score;
+
+    }else {
+      console.log("Player " +playerNo+" is dead"); //is working
+      this.img = document.getElementById("dieG3");
+      // return window.location = "/api/game#" +players[i] +score;
+
+    }
+
+   
+    console.log("Oh no I'm dead");
+
+    ctx.font = "100px Arial";
+    
+    var txt = "Game Over";
+    var x = 880;
+    var y = 450;
     var lineheight = 55;
-    var lines = txt.split('\n');
+    var lines = txt.split("\n");
 
-    for (var i = 0; i<lines.length; i++)
-    ctx.fillText(lines[i], x, y + (i*lineheight) );
 
-    var txt1 = 'Player 2\n Score : \n Lives  : ';
-    var x1 = 1400;
-    var y1= 80;
-    var lines1 = txt1.split('\n');
+    for (var i = 0; i < lines.length; i++)
+      ctx.fillText(lines[i], x, y + i * lineheight);
 
-    for (var i = 0; i<lines1.length; i++)
-    ctx.fillText(lines1[i], x1, y1 + (i*lineheight) );
+      ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+
 
   }
 
- 
+    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
+      var txt;
+      var txt1;
+      ctx.font = "50px Arial";
+      //  console.log(ctx);
+      if(playerNo=== 1){
+       txt = "Player: " +playerNo+ "\n Score: " + score;
+       }else{
+        txt = "Player: " +1+ "\n Score: " + this.score;
+      }
+      var x = 100;
+      var y = 80;
+      var lineheight = 55;
+      var lines = txt.split("\n");
+
+      for (var i = 0; i < lines.length; i++)
+        ctx.fillText(lines[i], x, y + i * lineheight);
+
+        if(playerNo === 2){
+           txt1 = "Player: " +playerNo+ "\n Score: " + score;
+           }else{
+            txt1 = "Player: " +2+ "\n Score: " + this.score;
+          }
+      var x1 = 1400;
+      var y1 = 80;
+      var lines1 = txt1.split("\n");
+
+      for (var i = 0; i < lines1.length; i++)
+        ctx.fillText(lines1[i], x1, y1 + i * lineheight);
+
+
+       //if(end){
+      // ctx.
+      // }
+  }
+
   move(dir) {
     this.isMoving[dir] = true;
   }
@@ -181,58 +238,97 @@ class Player {
     this.isMoving[dir] = false;
   }
 
-   crashWith (otherobj) {
+  crashWith(otherobj) {
     var myleft = this.x;
-    var myright = this.x + (this.w);
+    var myright = this.x + this.w;
     var mytop = this.y;
-    var mybottom = this.y + (this.h);
-    console.log("My obj: Left: " +myleft+"Right: " +myright+"Top: "+mytop+"Bottom" +mybottom);
+    var mybottom = this.y + this.h;
+    console.log(
+      "My obj: Left: " +
+        myleft +
+        "Right: " +
+        myright +
+        "Top: " +
+        mytop +
+        "Bottom" +
+        mybottom
+    );
     var otherleft = otherobj.x;
-    var otherright = otherobj.x + (otherobj.w);
+    var otherright = otherobj.x + otherobj.w;
     var othertop = otherobj.y;
-    var otherbottom = otherobj.y + (otherobj.h);
-    console.log("Other obj: Left: " +otherleft+"Right: " +otherright+"Top: "+othertop+"Bottom" +otherbottom);
+    var otherbottom = otherobj.y + otherobj.h;
+    console.log(
+      "Other obj: Left: " +
+        otherleft +
+        "Right: " +
+        otherright +
+        "Top: " +
+        othertop +
+        "Bottom" +
+        otherbottom
+    );
     var crash = true;
-    if ((mybottom < othertop) ||
-    (mytop > otherbottom) ||
-    (myright < otherleft) ||
-    (myleft > otherright)) {
+    if (
+      mybottom < othertop ||
+      mytop > otherbottom ||
+      myright < otherleft ||
+      myleft > otherright
+    ) {
       crash = false;
     }
     return crash;
   }
-  
 
+  //  eventCollision(e){
+  //   // var elem        = e.target;
+  //   console.log("Im inside the event listener fn");
+  //   console.log("Event" +e);
+  //   // console.log("elem" +elem);
+  //   var char = document.getElementById('source');
+  //   var char2 = document.getElementById('source1');
+  //   var elem        = e.target;
+  //   console.log("Event" +e);
+  //   console.log("elem" +elem);
+  //   elemOffset  = elem.getBoundingClientRect();
+  //   elemDisplay = elem.style.display;
 
-//  eventCollision(e){
-//   // var elem        = e.target;
-//   console.log("Im inside the event listener fn");
-//   console.log("Event" +e);
-//   // console.log("elem" +elem);
-//   var char = document.getElementById('source');
-//   var char2 = document.getElementById('source1');
-//   var elem        = e.target;
-//   console.log("Event" +e);
-//   console.log("elem" +elem);
-//   elemOffset  = elem.getBoundingClientRect();
-//   elemDisplay = elem.style.display;
-
-    
-// }
-  
+  // }
 }
 
-function isCollide(a, b, m=180) {
-    return !(
-       
-        ((a.x + a.w-m) < b.x) ||
-        (a.x > (b.x + b.w-m))
-    );
+function isCollide(a, b, m = 180) {
+  return !(a.x + a.w - m < b.x || a.x > b.x + b.w - m);
 }
+
+function printScore(player, ctx){
+  // return;
+           // affectedPerson = players[i];
+           ctx.font = "50px Arial";
+           // console.log(ctx);
+           var txt =  ctx.font = "50px Arial";
+           // console.log(ctx);
+           var txt =   player+"\n Score : "+  player.score+"";
+           var x = 100;
+           var y = 80;
+           var lineheight = 55;
+           var lines = txt.split("\n");
+ 
+           for (var i = 0; i < lines.length; i++)
+             ctx.fillText(lines[i], x, y + i * lineheight);
+ 
+           var txt1 =   player+"\n Score : "+  player.score+"";
+           var x1 = 1400;
+           var y1 = 80;
+           var lines1 = txt1.split("\n");
+ 
+           for (var i = 0; i < lines1.length; i++)
+             ctx.fillText(lines1[i], x1, y1 + i * lineheight);
+ 
+     }
 
 function calcScore(playerGotAttack){
   playerGotAttack.score = playerGotAttack.score-2;
-  console.log("Player:" +playerGotAttack.playerCount+ "Score:" +  playerGotAttack.score);
+  console.log("Player:" +(playerGotAttack.playerCount+1)+ "Score:" +  playerGotAttack.score);
+  return playerGotAttack.score;
 
 }
 
