@@ -20,34 +20,51 @@ router.get("/game", function(req, res) {
     res.sendFile(pathForindexFile);
    });
 
-
-router.post("/api/game", function(req,res) {
-    db.Player.create({
-       name:  req.body.name,
-       score : 100
-    }).then(function () {
-       res.redirect(307, "/game");
-    })
-    .catch(function(err) {
-      res.status(401).json(err);
-    });
-  });
+// window.location = "/score#"
+ router.post("/api/game", function(req,res) {
+     db.Player.create({
+        name:  req.body.name,
+        score : 100
+     }).then(function (response) {
+       //  res.redirect(307, "/game");
+     res.json(response);
+     })
+     .catch(function(err) {
+       res.status(500).json(err);
+     });
+   });
 
   
 
 
-router.put("/api/game/:player:score", function (req, res) {
-    var player = req.params.player;
-    var score = req.params.score;
+ router.put("/api/game" ,  function (req, res) {
+      var idValue = req.body.id;
+      var score = req.body.score;
 
-    db.Post.update(req.body, {
-        where: {
-          id: req.body.id,
-        },
-      }).then(function (dbPost) {
-        res.json(dbPost);
-      });
+     db.Player.update({score : score}, {
+         where: {
+           id: idValue,
+         },
+       }).then(function (dbPost) {
+         res.json(dbPost);
+       });
+
+   
 });
+
+router.get("/score/:id" ,  function (req, res) {
+    // var player = req.params.player;
+    // var score = req.params.score;
+
+        db.Player.findAll({})
+         
+        .then(function (dbPlayer) {
+          res.render("end",{dbPlayer})
+        });
+
+      });
+   
+
 
 
 
