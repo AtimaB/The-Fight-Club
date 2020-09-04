@@ -24,7 +24,7 @@ canvas {
 	width: 60%;
 	top: 55%;
 	left: 55%;
-	transform: translate(-40%, -140%);
+	transform: translate(4%, -150%);
 }
 
 h1 {
@@ -42,13 +42,13 @@ h2 {
 	position: absolute;
 }
 
-#start {
+#submitBtn {
   background-color: rgb(16, 129, 221);
   border-radius: 20px 0px 20px 0px;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
-#start:hover {
+#submitBtn:hover {
   background-color: rgb(65, 225, 247);
 }
 
