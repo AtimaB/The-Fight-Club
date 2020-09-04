@@ -17,24 +17,29 @@ body {
   position: fixed;
 }
 canvas {
-  position: fixed;
-  margin: 0 auto;
-  height: 100%;
-  width: 100%;
-  top: 55%;
-  left: 55%;
-  transform: translate(-50%, -50%);
+	/* position: fixed; */
+	position: block;
+	margin: 0 auto;
+	height: 60%;
+	width: 60%;
+	top: 55%;
+	left: 55%;
+	transform: translate(-40%, -140%);
 }
 
 h1 {
-  font-size: 40px;
-  text-align: right;
-  margin-top: 200px;
+	font-size: 40px;
+	text-align: right;
+	/* margin-top: 200px; */
 }
 
 h2 {
   font-size: 30px;
   text-align: center;
+}
+
+#form {
+	position: absolute;
 }
 
 #start {
