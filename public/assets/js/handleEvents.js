@@ -21,9 +21,14 @@ $(function () {
        }
      );
    });
+   $("#again").on("click", function (event) {
+    event.preventDefault();
+    return res.redirect("/game");
+    // window.location("/game")
+   });
 });
 
-//   $("#submitBtn").on("click", function (event) {});
+
 
 //   $("#ca").on("click", function (event) {});
 // });
