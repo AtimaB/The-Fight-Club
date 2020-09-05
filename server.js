@@ -20,6 +20,11 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+// let template = "Handlebars <b>{{PlayerValues}}</b> precompiled!";
+// let Handlebars = require("handlebars");
+// let compiled = Handlebars.precompile(template);
+// console.log(compiled);
+
 // Import routes and give the server access to them.
 // var routes = require("./controllers/gameController.js");
 const { log } = require("console");

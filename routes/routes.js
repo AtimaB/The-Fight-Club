@@ -2,6 +2,7 @@ var express = require("express");
 var path = require("path");
 var db = require("../models");
 var router = express.Router();
+const Sequelize = require("sequelize");
 
 var pathForindexFile = path.join(__dirname, '../views/index.html');
 var pathForWelcomeFile = path.join(__dirname, '../views/welcome.html');
@@ -41,7 +42,8 @@ router.get("/game", function(req, res) {
       var idValue = req.body.id;
       var score = req.body.score;
 
-     db.Player.update({score : score}, {
+     db.Player.update({score : score}, 
+      {
          where: {
            id: idValue,
          },
@@ -52,26 +54,25 @@ router.get("/game", function(req, res) {
    
 });
 
-router.get("/score/:id" ,  function (req, res) {
-    // var player = req.params.player;
-    // var score = req.params.score;
+          // var template = Handlebars.templates.example;
+          // document.getElementById('output').innerHTML = template({doesWhat: 'rocks!'})
 
-        db.Player.findAll({})
+router.get("/score" ,  function (req, res) {
+   
+        db.Player.findAll({ limit: 10 , order : Sequelize.literal('id DESC') })
          
-        .then(function (dbPlayer) {
-          res.render("end",{dbPlayer})
+        .then(function (Player) {
+        
+          console.log(Player);
+          res.render("end", {
+            PlayerValues : Player
+           
+          });
+      
         });
 
       });
-   
 
 
-
-
-
-router.put("/api/game/:id", function(req, res) {
-    
-   
-});
 
 module.exports = router;

@@ -2,10 +2,7 @@ class Player {
 
   constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score=100}) {
     this.type = type;
-    //  if (type == "image") {
-    //    this.image = new Image();
-    //    this.image.src = color;
-    //  }
+ 
     this.img = img;
     this.playerCount = playerCount;
     this.id = id;
@@ -20,9 +17,7 @@ class Player {
     this.die=0;
   }
   draw(ctx, players, onAttack) {
-        
-   var playerNo;
-  
+       
    var score;
 
     if (this.playerCount % 2 === 0) {
@@ -30,12 +25,15 @@ class Player {
     } else {
       this.img = document.getElementById("source1");
     }
+   
 
      if(this.score<0){
       if (this.playerCount % 2 === 0) {
         this.img = document.getElementById("dieR-2");
+       
       } else {
         this.img = document.getElementById("dieG-2");
+       
       }
 
       ctx.font = "100px Arial";
@@ -46,67 +44,35 @@ class Player {
          var lineheight = 55;
          var lines = txt.split("\n");
     
+        //  this.score = 0;
     
          for (var i = 0; i < lines.length; i++)
            ctx.fillText(lines[i], x, y + i * lineheight);
+            
+           console.log("Final Score" +this.score);
 
-          //  window.location = "/api/score#" +() +this.score;
-           $.ajax("/api/game", {
+          console.log(window.location.hash.substr(1), this.score);
+          console.log(window.location.hash.substr(1), this.score);
+         
+        // console.log("Player1 " +window.location.hash.substr(1) + this.score);
+        // console.log("Player 2 " +window.location.hash.substr(1) + this.score);
+
+          //  window.location.hash.substr(1)
+          // if (this.playerCount % 2 === 0) {
+            $.ajax("/api/game", {
              type: "PUT",
              data: {id: window.location.hash.substr(1), score: this.score},
-
+      
            }).then(
              function() {
-               //console.log("created new person");
-                //Reload the page to get the updated list
-              
-              window.location.replace("/score/" +window.location.hash.substr(1) );
-     
+               window.location.replace("/score");
              }
            );
-       
-      
-    }
-      // // let frame = Math.floor(this.die/10)%3;
-      // if(playerNo === 1){
-      // console.log("Player " +playerNo+" is dead"); // is working
-      // this.img = document.getElementById("dieR3");
-      // // return window.location = "/api/game#" +players[i] +score;
-  
-      // }else {
-      //   console.log("Player " +playerNo+" is dead"); //is working
-      //   this.img = document.getElementById("dieG3");
-      //   // return window.location = "/api/game#" +players[i] +score;
-  
-      // }
-  
-     
-    //   console.log("Oh no I'm dead");
-  
-    //   ctx.font = "100px Arial";
-      
-    //   var txt = "Game Over";
-    //   var x = 880;
-    //   var y = 450;
-    //   var lineheight = 55;
-    //   var lines = txt.split("\n");
-  
-  
-    //   for (var i = 0; i < lines.length; i++)
-    //     ctx.fillText(lines[i], x, y + i * lineheight);
-  
-    //     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-  
-  
+          }
+         
+        
     // }
-
-    //  for(var i=0; i<players.length; i++){
-    //    if(this.id !== players[i].id && isCollide(this, players[i])) {
-    //      var crash = this.crashWith(players[i]);
-    //      console.log("Touch" +crash);
-    //    }
-
-    //  }
+ 
 
     if (this.isMoving.right) {
 
@@ -159,17 +125,9 @@ class Player {
 
          players[i].score = players[i].score-0.2;
          onAttack(players[i]);
+        //  this.score = this.score;
+        //  onDefend(this);
          console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
-        //  playerNo = (players[i].playerCount+1);
-        //  score = players[i].score
-        //  playerNo =  (players[i].playerCount+1);
-        //   playScore = players[i].score;
-        //  if(playerNo === 1){
-        //  txt = "Player : "+(playerNo)+"\n Score : "+playScore+"";
-        //  }else if(playerNo === 2){
-        //    txt1 = "Player : "+(playerNo)+"\n Score : "+playScore+"";
-        //  }
-  
         }
         }
       }
@@ -204,7 +162,10 @@ class Player {
           if(crash) {
 
             players[i].score = players[i].score-0.2;
+            // players[i].id = 
             onAttack(players[i]);
+            // this.score = this.score;
+            // onDefend(this);
             console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
             // playerNo = (players[i].playerCount+1);
             // score = players[i].score
@@ -235,7 +196,7 @@ class Player {
 
     ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
       var txt;
-      var txt1;
+     
       var score;
       ctx.font = "50px Arial";
       //  console.log(ctx);
@@ -244,31 +205,26 @@ class Player {
       }else{
       score = Math.floor(this.score);
       }
-       txt = "Player: " +(this.playerCount+1) + "\n Score: " + score;
-    
-       
-     
-      var x = 100;
-      var y = 80;
+       txt = "Player: " +(this.playerCount+1) + "\nScore: " + score;
+ 
+      var x =100;
+      var y =80;
       var lineheight = 55;
       var lines = txt.split("\n");
 
       if (this.playerCount % 2 === 0) {
         // var crashVal = 0;
-       
      
       } else {
-         x= x+250;
-         y=y+250;
+         x= 1500;
+         y=80;
+        //  y=y+250;
         
       }
 
       for (var i = 0; i < lines.length; i++)
         ctx.fillText(lines[i], x, y + i * lineheight);
 
-       //if(end){
-      // ctx.
-      // }
   }
 
   move(dir) {
@@ -320,20 +276,6 @@ class Player {
     return crash;
   }
 
-  //  eventCollision(e){
-  //   // var elem        = e.target;
-  //   console.log("Im inside the event listener fn");
-  //   console.log("Event" +e);
-  //   // console.log("elem" +elem);
-  //   var char = document.getElementById('source');
-  //   var char2 = document.getElementById('source1');
-  //   var elem        = e.target;
-  //   console.log("Event" +e);
-  //   console.log("elem" +elem);
-  //   elemOffset  = elem.getBoundingClientRect();
-  //   elemDisplay = elem.style.display;
-
-  // }
 }
 
 function isCollide(a, b, m = 180) {
