@@ -86,6 +86,8 @@ window.onload = function () {
       players.splice(i, 1);
       draw();
     });
+ 
+
     const onAttack = (attacked) => {
       socket.emit("update-player", attacked);
 

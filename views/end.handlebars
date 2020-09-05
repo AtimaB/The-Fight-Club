@@ -1,26 +1,33 @@
+{{!-- <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
+<script src="end.precompiled.js"></script> --}}
+
 <div class="container">
-    <div class="row" style="text-align: center; padding: 30px;">
-        <div class="col s12" id="highScore"><span class="flow-text">Highscore</span></div>
+    {{!-- <div class="row" style="text-align: center; padding: 30px;"> --}}
+        {{!-- <div class="col s12" id="highScore"><span class="flow-text">Highscore</span></div>
         <p> Player's name: {{this.name}}</p><br>
         <p>score: {{this.}}</p>
-    </div>
+    </div> --}}
     <div class="row">
+        <h3>Score Details</h3>
         <table>
             <thead>
                 <tr>
-                    <th>No.</th>
+                    {{!-- <th>No.</th> --}}
                     <th>Name</th>
                     <th>Score</th>
                 </tr>
             </thead>
 
             <tbody>
-                {{#each Player}}
-                <tr>
-                    <td>{{this.id }}</td>
-                    <td>{{this.name}}</td>
-                    <td>{{this.score}}</td>
+               
+                {{#each PlayerValues}}
+             
+                <tr >
+                    {{!-- <td>{{dataValues/id }}</td> --}}
+                    <td>{{dataValues/name}}</td>
+                    <td>{{dataValues/score}}</td>
                 </tr>
+               
                 {{/each}}
             </tbody>
         </table>

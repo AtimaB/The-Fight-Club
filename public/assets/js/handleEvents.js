@@ -27,8 +27,8 @@ $(function () {
    
    $("#again").on("click", function (event) {
     event.preventDefault();
-    return res.redirect("/");
-    // window.location("/game")
+    // return res.redirect("/");
+    window.location.replace("/")
    });
 });
 
