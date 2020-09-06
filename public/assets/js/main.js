@@ -1,34 +1,22 @@
 import Player from "./player.js";
 import controls from "./controls.js";
-// const Player = require("Player.js");
 
+var player;
 window.onload = function () {
   const socket = io(),
     canvas = document.getElementById("game"),
-    // console.log(canvas),
     ctx = canvas.getContext("2d");
 
-  // const writeToCanvas = msg => {
-  //     ctx.fillStyle = "black";
-  //     ctx.font = "20px";
-  //     ctx.fillText(msg , 30, 30);
-
-  // }
-  // var img = '../assets/images/char3.png';
-  //        img.src =
-
   let players = [];
-  let count = 0;
-  socket.on("init", ({ id, plyrs, playerIndex }) => {
-    // const player = new Player({ id });
-    // socket.emit()
-    // writeToCanvas("Connected");
+  socket.on("init", ({ id, plyrs }) => {
+
     let type = "image";
     let w;
     let h;
     let x;
     let y;
     let img;
+    let score;
     let playerCount = plyrs.length;
     console.log(playerCount);
     if (playerCount % 2 === 0) {
@@ -38,12 +26,16 @@ window.onload = function () {
       x = 1400;
       y = 600;
     }
-    let player = new Player({ id, w, h, img, x, y, type, playerCount });
-    // console.log(plyrs.length);
+    //get id, name from URL
+    let params = new URLSearchParams(window.location.search);
+    let URLid = params.get('id')
+    let URLname = params.get('name')
 
-    // if(playerCount === 2){
-    //   socket.emit("disconnect", player);
-    // }
+    //  console.log("URL id:"+URLid);
+    //  console.log("URLName" +URLname);
+
+    player = new Player({ id, w, h, img, x, y, type, playerCount, score, URLid, URLname });
+
     controls(player, socket);
     socket.emit("new-player", player);
     //This especially runs on other machines...
@@ -86,12 +78,12 @@ window.onload = function () {
       players.splice(i, 1);
       draw();
     });
- 
+
 
     const onAttack = (attacked) => {
       socket.emit("update-player", attacked);
-
     }
+
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);

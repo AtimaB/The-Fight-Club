@@ -38,6 +38,19 @@ html,body{
         <!--  style="display:none;" -->
         
         <canvas id="game" width = "1790" height="990">  </canvas>
+
+        <audio style="display:none;" id="audio1">
+          <source src="/assets/images/fightclub.mp3" type="audio/mpeg" onloadeddata="setHalfVolume()">
+      </audio>
+
+      <audio style="display:none;" id="endaudio">
+        <source src="/assets/images/end.mp3" type="audio/mpeg" >
+    </audio>
+
+    <audio style="display:none;" id="gameoveraudio">
+      <source src="/assets/images/gameover.mp3" type="audio/mpeg" >
+  </audio>
+
         <div style="display:none; margin-bottom: 25px;">
             <img id="source" src="../assets/images/char1.png">
           </div>
@@ -85,7 +98,7 @@ html,body{
           </div>
 
           <div style="display:none; margin-bottom: 25px;">
-            <img id="dieR-2" src="../assets/images/dieR3.png">
+            <img id="dieR-2" src="../assets/images/dieR4.png">
           </div>
 
           <div style="display:none; margin-bottom: 25px;">
@@ -97,7 +110,7 @@ html,body{
           </div>
 
           <div style="display:none; margin-bottom: 25px;">
-            <img id="dieG-2" src="../assets/images/dieG3.png">
+            <img id="dieG-2" src="../assets/images/dieG4.png">
           </div>
 
         <div style="display:none; margin-bottom: 25px;">
@@ -134,12 +147,24 @@ html,body{
             <img id="attackumb1" src="../assets/images/charUmbG.png">
           </div>
 </body>
+
+      <!-- Audio !-->
+      <script>
+        function setHalfVolume() {
+            var myAudio = document.getElementById("audio1");
+            myAudio.volume = 0.4;
+        }
+    </script>
+
+
 <script src = "http://localhost:8080/socket.io/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script> 
 
  <!-- <script src = "https://cdn.socket.it/socket.io.1.4.5.js"></script> -->
  <script type="module" src="../assets/js/main.js"></script>
  <script type="module" src="../assets/js/player.js"></script>
+ <!-- <script type="module" src="../routes/routes.js"></script>  -->
+ <!-- <script type="module" src="../routes/playerClass.js"></script>  -->
  <!-- <script src ="../assets/js/sample.js"></script> -->
 <!-- <script src="../assets/js/handleEvents.js"></script> -->
 
