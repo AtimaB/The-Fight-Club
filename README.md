@@ -13,6 +13,7 @@ As gamers we wanted to create a game that we could play with our friends and sha
 - [Github/Heroku](#Github/Heroku)
 - [License](#License)
 - [Screenshots](#Screenshots)
+- [Resources](#Resources)
 - [Contribution](#Contribution)
 - [Questions](#Questions)
 
@@ -35,6 +36,10 @@ To use the app you must open the terminal and use the command 'node server.js'. 
 - For any questions regarding licensing refer to https://choosealicense.com/licenses/
 
 # Screenshots
+
+# Resources
+- Sound Effects :  https://www.zapsplat.com/
+- Character : https://www.vecteezy.com/
 
 # Contribution
 
