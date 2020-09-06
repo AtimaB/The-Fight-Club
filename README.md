@@ -12,7 +12,6 @@ As gamers we wanted to create a game that we could play with our friends and sha
 - [Usage](#Usage)
 - [License](#License)
 - [Contribution](#Contribution)
-- [Tests](#Tests)
 - [Questions](#Questions)
 
 # Installation
