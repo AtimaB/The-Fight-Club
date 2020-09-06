@@ -42,13 +42,13 @@ h2 {
 	position: absolute;
 }
 
-#submitBtn {
+#submitBtn, #again {
   background-color: rgb(16, 129, 221);
   border-radius: 20px 0px 20px 0px;
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 
-#submitBtn:hover {
+#submitBtn:hover, #again:hover {
   background-color: rgb(65, 225, 247);
 }
 
