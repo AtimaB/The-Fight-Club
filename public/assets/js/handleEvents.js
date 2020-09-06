@@ -18,7 +18,9 @@ $(function () {
          console.log(res);
          // Reload the page to get the updated list
         //  window.location = "/game";
-        window.location.replace("/game#" +res.id);
+        console.log(res.playerUUID);
+        console.log(res.name);
+        window.location.replace("/game?id=" +res.playerUUID+"&name="+res.name);
 
        }
      );

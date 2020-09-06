@@ -13,6 +13,10 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       // allowNull: false,
     },
+    playerUUID: {
+      type: DataTypes.STRING,
+      // allowNull: false,
+    },
   });
   return Player;
 };

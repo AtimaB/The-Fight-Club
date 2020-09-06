@@ -1,7 +1,8 @@
 import Player from "./player.js";
 import controls from "./controls.js";
+// import PlayerAll from "./playerClass.js";
 // const Player = require("Player.js");
-
+var player;
 window.onload = function () {
   const socket = io(),
     canvas = document.getElementById("game"),
@@ -29,6 +30,7 @@ window.onload = function () {
     let x;
     let y;
     let img;
+    let score;
     let playerCount = plyrs.length;
     console.log(playerCount);
     if (playerCount % 2 === 0) {
@@ -38,7 +40,16 @@ window.onload = function () {
       x = 1400;
       y = 600;
     }
-    let player = new Player({ id, w, h, img, x, y, type, playerCount });
+       // parse name from player
+       let params = new URLSearchParams(window.location.search);
+       let URLid = params.get('id') // 'chrome-instant'
+       let URLname = params.get('name') 
+
+       console.log("URL id:"+URLid);
+       console.log("URLName" +URLname);
+    
+   player = new Player({ id, w, h, img, x, y, type, playerCount, score, URLid, URLname });
+  //  new PlayerAll({id});
     // console.log(plyrs.length);
 
     // if(playerCount === 2){
@@ -91,7 +102,27 @@ window.onload = function () {
     const onAttack = (attacked) => {
       socket.emit("update-player", attacked);
 
+      // if(attacked.score<0){
+      // let params = new URLSearchParams(window.location.search);
+      // let URLid = params.get('id') // 'chrome-instant'
+      // let URLname = params.get('name') // 'mdn query string'
+      //  console.log(URLid);
+      //  console.log(URLname)
+     
+     
+      // $.ajax("/api/game", {
+      //       type: "PUT",
+      //       data: {id: URLid, name: URLname, score: this.score},
+    
+      //     }).then(
+      //       function() {
+      //         window.location.replace("/score");
+      //       }
+      //     );
+      // }
+        
     }
+
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -104,3 +135,5 @@ window.onload = function () {
     draw();
   });
 };
+
+// module.exports.player;  

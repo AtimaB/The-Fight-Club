@@ -1,6 +1,6 @@
 class Player {
 
-  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score=100}) {
+  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score=100, URLid, URLname}) {
     this.type = type;
  
     this.img = img;
@@ -15,10 +15,14 @@ class Player {
     this.steps = 0;
     this.score= score;
     this.die=0;
+    this.URLid =URLid;
+    this.URLname = URLname;
   }
+
+  
   draw(ctx, players, onAttack) {
        
-   var score;
+  //  var score;
 
     if (this.playerCount % 2 === 0) {
       this.img = document.getElementById("source");
@@ -46,28 +50,31 @@ class Player {
     
         //  this.score = 0;
     
-         for (var i = 0; i < lines.length; i++)
+         for (var i = 0; i < lines.length; i++){
            ctx.fillText(lines[i], x, y + i * lineheight);
-            
-           console.log("Final Score" +this.score);
+         }
 
-          console.log(window.location.hash.substr(1), this.score);
-          console.log(window.location.hash.substr(1), this.score);
-         
-        // console.log("Player1 " +window.location.hash.substr(1) + this.score);
-        // console.log("Player 2 " +window.location.hash.substr(1) + this.score);
-
-          //  window.location.hash.substr(1)
-          // if (this.playerCount % 2 === 0) {
-            $.ajax("/api/game", {
-             type: "PUT",
-             data: {id: window.location.hash.substr(1), score: this.score},
-      
-           }).then(
-             function() {
-               window.location.replace("/score");
-             }
-           );
+         window.location.replace("/score");
+      // console.log(window.location);
+        //  var URLid = window.location.search.match(new RegExp('\?id\=([a-zA-Z0-9\-]+)'))[1];
+        //  var URLname =   window.location.search.match(new RegExp('[&]' + name + '=([^&]+)'))[2];
+        //  let params = new URLSearchParams(window.location.search);
+        //  let URLid = params.get('id') // 'chrome-instant'
+        //  let URLname = params.get('name') // 'mdn query string'
+        //   console.log(URLid);
+        //   console.log(URLname)
+        
+        
+        //  $.ajax("/api/game", {
+        //        type: "PUT",
+        //        data: {id: URLid, name: URLname, score: this.score},
+       
+        //      }).then(
+        //        function() {
+        //          window.location.replace("/score");
+        //        }
+        //      );
+           
           }
          
         
@@ -119,21 +126,38 @@ class Player {
      
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
-        crash = this.crashWith(players[i]);
-    
-        if(crash) {
+          crash = this.crashWith(players[i]);
+      
+          if(crash) {
 
-         players[i].score = players[i].score-0.2;
-         onAttack(players[i]);
-        //  this.score = this.score;
-        //  onDefend(this);
-         console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
-        }
+            players[i].score = players[i].score-0.2;
+            onAttack(players[i]);
+    
+            // let params = new URLSearchParams(window.location.search);
+            // let URLid = params.get('id') // 'chrome-instant'
+            // let URLname = params.get('name')  //'mdn query string'
+            // console.log("URL id" +URLid);
+            // console.log("URL Name" +URLname);
+            console.log("players[i].URLid" +players[i].URLid+  " players[i].URLid" +players[i].URLid);
+            $.ajax("/api/game", {
+                type: "PUT",
+                data: {id: players[i].URLid, name: players[i].URLname, score: players[i].score},
+        
+              }).then(
+                function() {
+                }
+              );
+            // if (players[i].score < 0) {
+            //   window.location.replace("/score");
+            // }
+    
+          //  console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+          }
         }
       }
 
       if (this.playerCount % 2 === 0) {
-        // var crashVal = 0;
+      
         this.img = document.getElementById("attack");
       } else {
         this.img = document.getElementById("attack1");
@@ -157,18 +181,37 @@ class Player {
       for(var i=0; i<players.length; i++){
         if(this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
-          console.log("Umbrella punch" + crash);
+       
 
           if(crash) {
 
             players[i].score = players[i].score-0.2;
-            // players[i].id = 
+           
             onAttack(players[i]);
-            // this.score = this.score;
-            // onDefend(this);
-            console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
-            // playerNo = (players[i].playerCount+1);
-            // score = players[i].score
+            
+              //  let params = new URLSearchParams(window.location.search);
+              //  let URLid = params.get('id')  //'chrome-instant'
+              //  let URLname = params.get('name')  //'mdn query string'
+              //   console.log(URLid);
+              //   console.log(URLname)
+             
+             
+               $.ajax("/api/game", {
+                     type: "PUT",
+                     data: {id: players[i].URLid, name: players[i].URLname, score: players[i].score},
+            
+                   }).then(
+                     function() {
+                       //window.location.replace("/score");
+                     }
+                   );
+        // if (players[i].score < 0) {
+        //   window.location.replace("/score");
+        // }                
+        
+          
+            // console.log("Player:" +(players[i].playerCount+1)+ "Score:" +   players[i].score);
+    
           }
         }
       }
@@ -240,30 +283,30 @@ class Player {
     var myright = this.x + this.w;
     var mytop = this.y;
     var mybottom = this.y + this.h;
-    console.log(
-      "My obj: Left: " +
-        myleft +
-        "Right: " +
-        myright +
-        "Top: " +
-        mytop +
-        "Bottom" +
-        mybottom
-    );
+    // console.log(
+    //   "My obj: Left: " +
+    //     myleft +
+    //     "Right: " +
+    //     myright +
+    //     "Top: " +
+    //     mytop +
+    //     "Bottom" +
+    //     mybottom
+    // );
     var otherleft = otherobj.x;
     var otherright = otherobj.x + otherobj.w;
     var othertop = otherobj.y;
     var otherbottom = otherobj.y + otherobj.h;
-    console.log(
-      "Other obj: Left: " +
-        otherleft +
-        "Right: " +
-        otherright +
-        "Top: " +
-        othertop +
-        "Bottom" +
-        otherbottom
-    );
+    // console.log(
+    //   "Other obj: Left: " +
+    //     otherleft +
+    //     "Right: " +
+    //     otherright +
+    //     "Top: " +
+    //     othertop +
+    //     "Bottom" +
+    //     otherbottom
+    // );
     var crash = true;
     if (
       mybottom < othertop ||
