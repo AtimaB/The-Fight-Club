@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="/assets/css/main.css" type="text/css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-   
-</head>
 
+</head>
+<style>
+    body {
+        position: fixed;
+    }
+</style>
 <body>
     <!-- Movements!-->
     <div class="row">
@@ -34,16 +38,18 @@
         </div>
         <!-- Rules!-->
         <div class="col s6" style="margin-top: 220px;">
-            <p style="font-size: 23px; text-align: center; margin-bottom: 30px;">Hello fighters, Welcome to The FightClub,<br>
+            <p style="font-size: 23px; text-align: center; margin-bottom: 30px;">Hello fighters, Welcome to The
+                FightClub,<br>
                 Here are the rules :</p>
             <ul>
-                <li>1. gsjslfcijkmlsiufjdlmvckjvin.asujcesk</li>
-                <li>2. gvrbhthrnfbvsscrv</li>
-                <li>3. scvtecjlajox,kol,</li>
-            </ul>
+                <li>1. The players start with 100 score points.</li>
+                <li>2. Attack by hitting the other player.</li>
+                <li>3. When one of the player's score reach 0 then the game is over.</li>
+                <li>4. Enjoy the game!.</li>
+            </ul> <br>
             <p style="font-size: 20px; text-align: center; margin-bottom: 16px;">Before you begin the game.<br>Please
                 put your name below and then click "Let's Fight".</p>
-  
+
             </p>
             <!-- id="enter_text" -->
             <div class="container">
@@ -51,101 +57,99 @@
                     <div class="col s12">
                         <!-- start game button !-->
                         <textarea id="textarea1" class="materialize-textarea" style="background-color: white;"
-                            name="name" value="" ></textarea>
+                            name="name" value=""></textarea>
                         <button type="submit" class="submit btn-large col s4 offset-s4" id="submitBtn">Let's Fight!</button>
                         <!-- <img src="/public/assets/images/players.png" style="width: 80px; height: 130px; margin-left: 30px;" alt="players"> -->
                     </div>
                 </div>
+            </div>
         </div>
-    </div>
 
+        <!-- Audio !-->
+        <audio autoplay id="audio1">
+            <source src="/assets/images/fightclub.mp3" type="audio/mpeg" onloadeddata="setHalfVolume()">
+        </audio>
 
+        <!-- Canvas !-->
+        <div class="canvas-container">
+            <canvas id="scene"></canvas>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
 
-    <!-- Audio !-->
-    <audio controls id="audio1">
-        <source src="/assets/images/fightclub.mp3" type="audio/mpeg" onloadeddata="setHalfVolume()">
-    </audio>
+            <script>
 
-    <!-- Canvas !-->
-    <canvas id="scene"></canvas> 
+                var canvas = document.getElementById('scene');
+                var ctx = canvas.getContext("2d");
+                ctx.moveTo(0, 0);
+                var particles = [];
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+                var png = new Image();
+                png.src = "/assets/images/logoSmall_S.png";
+                png.onload = drawImg;
 
-    <script>
+                function drawImg() {
+                    canvas.width = png.width * 6;
+                    canvas.height = png.height * 6;
 
-         var canvas = document.getElementById('scene');
-         var ctx = canvas.getContext("2d");
-          ctx.moveTo(0, 0);
-         var particles = [];
+                    ctx.drawImage(png, 0, 0);
 
-         var png = new Image();
-         png.src = "/assets/images/logoSmall_S.png";
-         png.onload = drawImg;
+                    var data = ctx.getImageData(0, 0, png.width, png.height);
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-         function drawImg() {
-             canvas.width = png.width * 6;
-             canvas.height = png.height * 6;
+                    for (var y = 0; y < data.height; y++) {
+                        for (var x = 0; x < data.width; x++) {
+                            var p = (x + y * data.width) * 4;
 
-             ctx.drawImage(png, 0, 0);
-
-             var data = ctx.getImageData(0, 0, png.width, png.height);
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-             for (var y = 0; y < data.height; y++) {
-                 for (var x = 0; x < data.width; x++) {
-                     var p = (x + y * data.width) * 4;
-
-                     if (data.data[p + 3] > 129) {
-                         var particle = {
-                             x0: x,
-                             y0: y,
-                             x1: png.width / 3,
-                             y1: png.height / 3,
-                             speed: Math.random() * 1 + 1,
-                             color: `rgb(${data.data[p]},
+                            if (data.data[p + 3] > 129) {
+                                var particle = {
+                                    x0: x,
+                                    y0: y,
+                                    x1: png.width / 3,
+                                    y1: png.height / 3,
+                                    speed: Math.random() * 1 + 1,
+                                    color: `rgb(${data.data[p]},
 		 								${data.data[p + 1]},
 		 								${data.data[p + 2]})`
-                         }
-                         TweenMax.to(particle, particle.speed, {
-                             x1: particle.x0,
-                             y1: particle.y0,
-                             delay: y / 40,
-                             ease: Elastic.easeOut
-                         })
-                         particles.push(particle)
-                     }
-                 }
-           }
-             requestAnimationFrame(render);
-         }
+                                }
+                                TweenMax.to(particle, particle.speed, {
+                                    x1: particle.x0,
+                                    y1: particle.y0,
+                                    delay: y / 40,
+                                    ease: Elastic.easeOut
+                                })
+                                particles.push(particle)
+                            }
+                        }
+                    }
+                    requestAnimationFrame(render);
+                }
 
-         var render = function () {
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-             for (var i = 0; i < particles.length; i++) {
-                 var particle = particles[i];
-                 ctx.fillStyle = particle.color;
-                 ctx.fillRect(particle.x1 * 3, particle.y1 * 3, 3, 3);
-             }
-             requestAnimationFrame(render);
-         };
+                var render = function () {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    for (var i = 0; i < particles.length; i++) {
+                        var particle = particles[i];
+                        ctx.fillStyle = particle.color;
+                        ctx.fillRect(particle.x1 * 3, particle.y1 * 3, 3, 3);
+                    }
+                    requestAnimationFrame(render);
+                };
 
-        function setHalfVolume() {
-            var myAudio = document.getElementById("audio1");
-            myAudio.volume = 0.5;
-        }
+                function setHalfVolume() {
+                    var myAudio = document.getElementById("audio1");
+                    myAudio.volume = 0.5;
+                }
 
-    </script>
+            </script>
+        </div>
+        <!-- Audio !-->
+        <script>
+            function setHalfVolume() {
+                var myAudio = document.getElementById("audio1");
+                myAudio.volume = 0.4;
+            }
+        </script>
 
-    <!--Audio Valume
-      <script>
-        function setHalfVolume() {
-            var myAudio = document.getElementById("audio1");
-            myAudio.volume = 0.5;
-        }
-      </script>--> 
-     
-<script src="../assets/js/handleEvents.js"></script>
+        <script src="../assets/js/handleEvents.js"></script>
 
 </body>
 
