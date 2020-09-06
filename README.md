@@ -36,10 +36,16 @@ To use the app you must open the terminal and use the command 'node server.js'. 
 - For any questions regarding licensing refer to https://choosealicense.com/licenses/
 
 # Screenshots
+![the-fight-club](./public/assets/images/backgroundLogo2.jpg)
+
 
 # Resources
-- Sound Effects :  https://www.zapsplat.com/
-- Character : https://www.vecteezy.com/
+- [Sound Effects](https://www.zapsplat.com/)
+- [Character](https://www.vecteezy.com/)
+- [Logo Animation Effect](https://youtu.be/31nFFk0B9Sw)
+- [Adding model validation to the Sequelize ORM library for node.js](https://hiddentao.com/archives/2011/11/12/adding-model-validation-to-the-sequelize-orm-library-for-node-js)
+
+
 
 # Contribution
 
