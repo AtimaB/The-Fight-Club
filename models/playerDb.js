@@ -1,10 +1,11 @@
 module.exports = function (sequelize, DataTypes) {
   var Player = sequelize.define("Player", {
     name: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notNull: {
+        len: {
+          args: 1,
           msg: "Please enter your name.",
         },
       },
