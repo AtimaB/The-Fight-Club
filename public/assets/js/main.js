@@ -1,29 +1,15 @@
 import Player from "./player.js";
 import controls from "./controls.js";
-// import PlayerAll from "./playerClass.js";
-// const Player = require("Player.js");
+
 var player;
 window.onload = function () {
   const socket = io(),
     canvas = document.getElementById("game"),
-    // console.log(canvas),
     ctx = canvas.getContext("2d");
 
-  // const writeToCanvas = msg => {
-  //     ctx.fillStyle = "black";
-  //     ctx.font = "20px";
-  //     ctx.fillText(msg , 30, 30);
-
-  // }
-  // var img = '../assets/images/char3.png';
-  //        img.src =
-
   let players = [];
-  let count = 0;
-  socket.on("init", ({ id, plyrs, playerIndex }) => {
-    // const player = new Player({ id });
-    // socket.emit()
-    // writeToCanvas("Connected");
+  socket.on("init", ({ id, plyrs }) => {
+
     let type = "image";
     let w;
     let h;
@@ -40,21 +26,16 @@ window.onload = function () {
       x = 1400;
       y = 600;
     }
-       // parse name from player
-       let params = new URLSearchParams(window.location.search);
-       let URLid = params.get('id') // 'chrome-instant'
-       let URLname = params.get('name') 
+    //get id, name from URL
+    let params = new URLSearchParams(window.location.search);
+    let URLid = params.get('id')
+    let URLname = params.get('name')
 
-       console.log("URL id:"+URLid);
-       console.log("URLName" +URLname);
-    
-   player = new Player({ id, w, h, img, x, y, type, playerCount, score, URLid, URLname });
-  //  new PlayerAll({id});
-    // console.log(plyrs.length);
+    //  console.log("URL id:"+URLid);
+    //  console.log("URLName" +URLname);
 
-    // if(playerCount === 2){
-    //   socket.emit("disconnect", player);
-    // }
+    player = new Player({ id, w, h, img, x, y, type, playerCount, score, URLid, URLname });
+
     controls(player, socket);
     socket.emit("new-player", player);
     //This especially runs on other machines...
@@ -97,30 +78,10 @@ window.onload = function () {
       players.splice(i, 1);
       draw();
     });
- 
+
 
     const onAttack = (attacked) => {
       socket.emit("update-player", attacked);
-
-      // if(attacked.score<0){
-      // let params = new URLSearchParams(window.location.search);
-      // let URLid = params.get('id') // 'chrome-instant'
-      // let URLname = params.get('name') // 'mdn query string'
-      //  console.log(URLid);
-      //  console.log(URLname)
-     
-     
-      // $.ajax("/api/game", {
-      //       type: "PUT",
-      //       data: {id: URLid, name: URLname, score: this.score},
-    
-      //     }).then(
-      //       function() {
-      //         window.location.replace("/score");
-      //       }
-      //     );
-      // }
-        
     }
 
 
@@ -135,5 +96,3 @@ window.onload = function () {
     draw();
   });
 };
-
-// module.exports.player;  
