@@ -77,6 +77,16 @@ router.get("/game", function(req, res) {
           // document.getElementById('output').innerHTML = template({doesWhat: 'rocks!'})
 
 router.get("/score" ,  function (req, res) {
+
+var maximumScore; 
+        db.Player.findAll({
+          attributes: [[Sequelize.fn('max', Sequelize.col('score')), 'maxScore']],
+         
+        }) .then(function (Player) {
+          // console.log("maxScore" +Player);
+          maximumScore = Player;
+
+        });
    
         db.Player.findAll({ limit: 10 , order : Sequelize.literal('id DESC') })
          
@@ -84,13 +94,13 @@ router.get("/score" ,  function (req, res) {
         
           // console.log(Player);
           res.render("end", {
-            PlayerValues : Player
+            PlayerValues : Player,
+            HighscoreValue : maximumScore
            
           });
       
         });
-
-      });
+    });
 
 
 
