@@ -1,6 +1,6 @@
 # The Fight Club
 
-![Unlicense](https://img.shields.io/badge/License-Unlicense-green.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg) 
 
 # Description
 
@@ -14,7 +14,7 @@ As gamers we wanted to create a game that we could play with our friends and sha
 - [License](#License)
 - [Screenshots](#Screenshots)
 - [Resources](#Resources)
-- [Contribution](#Contribution)
+- [Team](#Team)
 - [Questions](#Questions)
 
 # Installation
@@ -32,8 +32,7 @@ To use the app you must open the terminal and use the command 'node server.js'. 
 
 # License
 
-- This project uses the following license: Unlicense
-- For any questions regarding licensing refer to https://choosealicense.com/licenses/
+- This project uses the following license:  **MIT** 
 
 # Screenshots
 ![the-fight-club](./public/assets/images/backgroundLogo2.jpg)
@@ -42,15 +41,16 @@ To use the app you must open the terminal and use the command 'node server.js'. 
 # Resources
 - [Sound Effects](https://www.zapsplat.com/)
 - [Character](https://www.vecteezy.com/)
-- [Logo Animation Effect](https://youtu.be/31nFFk0B9Sw)
 - [Adding model validation to the Sequelize ORM library for node.js](https://hiddentao.com/archives/2011/11/12/adding-model-validation-to-the-sequelize-orm-library-for-node-js)
 
 
 
-# Contribution
-
-- Yakini - https://github.com/YakiniA
+# Team
+#### Front-End
 - Atima - https://github.com/AtimaB
+
+#### Back-End
+- Yakini - https://github.com/YakiniA
 - Collin - https://github.com/Collin-Hodgson
 
 # Questions/Contact
