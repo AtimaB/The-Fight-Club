@@ -39,6 +39,8 @@ To use the app you must open the terminal and use the command `node server.js`. 
 
 
 ## Resources
+- [Build a multiplayer game with sockets ](https://www.youtube.com/watch?v=a9rkpvgQUUw&t=414s)
+- [Game Canvas](https://www.w3schools.com/graphics/game_canvas.asp)
 - [Sound Effects](https://www.zapsplat.com/)
 - [Characters](https://www.vecteezy.com/)
 
