@@ -40,19 +40,19 @@ To use the app you must open the terminal and use the command 'node server.js'. 
 
 # Resources
 - [Sound Effects](https://www.zapsplat.com/)
-- [Character](https://www.vecteezy.com/)
-- [Adding model validation to the Sequelize ORM library for node.js](https://hiddentao.com/archives/2011/11/12/adding-model-validation-to-the-sequelize-orm-library-for-node-js)
-
+- [Characters](https://www.vecteezy.com/)
 
 
 # Team
 #### Front-End
-- Atima - https://github.com/AtimaB
+- Atima Bennett 
 
 #### Back-End
-- Yakini - https://github.com/YakiniA
-- Collin - https://github.com/Collin-Hodgson
+- Yakini Arumuga Kani 
+- Collin Hodgson  
 
 # Questions/Contact
 
-- Github Username: YakiniA, AtimaB, Collin-Hodgson
+* [YakiniA](https://github.com/YakiniA)
+* [AtimaB](https://github.com/AtimaB)
+* [Collin-Hodgson](https://github.com/Collin-Hodgson)
