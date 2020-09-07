@@ -43,7 +43,7 @@ To use the app you must open the terminal and use the command `node server.js`. 
 - [Characters](https://www.vecteezy.com/)
 
 
-## Tasks and Roles
+## Team
 #### Front-End
 - Atima Bennett 
 
