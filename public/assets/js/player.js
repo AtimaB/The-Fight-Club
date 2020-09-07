@@ -10,7 +10,7 @@ class Player {
     this.h = h;
     this.x = x;
     this.y = y;
-    this.speed = 3;
+    this.speed = 1;
     this.isMoving = {};
     this.steps = 0;
     this.score = score;
@@ -29,6 +29,7 @@ class Player {
     myMusic.play();
 
     if (this.playerCount % 2 === 0) {
+      this.w = 250;
       this.img = document.getElementById("source");
     } else {
       this.img = document.getElementById("source1");
@@ -37,6 +38,7 @@ class Player {
 
     if (this.score < 0) {
       if (this.playerCount % 2 === 0) {
+        // this.w=250;
         this.img = document.getElementById("dieR-2");
 
       } else {
@@ -45,7 +47,7 @@ class Player {
       }
 
       myMusic.pause();
-      myMusic.src = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAVFYAAFRWAAABAAgAZGF0YQAAAAA=';
+      // myMusic.src = '';
       gameoverMusic.play();
 
       ctx.font = "100px Arial";
@@ -66,12 +68,12 @@ class Player {
 
     if (this.isMoving.right) {
 
-      this.x += this.speed;
-      this.steps++;
 
+      this.steps++;
+      this.x += this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
       if (this.playerCount % 2 === 0) {
-
+        this.w = 450;
         this.img = document.getElementById('moving-' + frame);
 
       } else {
@@ -81,10 +83,12 @@ class Player {
       }
     }
     if (this.isMoving.left) {
-      this.x -= this.speed;
+
       this.steps++;
+      this.x -= this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
       if (this.playerCount % 2 === 0) {
+        this.w = 250;
         this.img = document.getElementById('moving-' + frame);
 
 
@@ -124,7 +128,7 @@ class Player {
       }
 
       if (this.playerCount % 2 === 0) {
-
+        this.w = 450;
         this.img = document.getElementById("attack");
       } else {
         this.img = document.getElementById("attack1");
@@ -137,8 +141,10 @@ class Player {
 
 
       if (this.playerCount % 2 === 0) {
+        // this.w=250;
         this.img = document.getElementById("defend");
       } else {
+        // this.w=250;
         this.img = document.getElementById("defend1");
       }
 
@@ -173,6 +179,7 @@ class Player {
       }
 
       if (this.playerCount % 2 === 0) {
+        this.w = 450;
         this.img = document.getElementById("attackumb");
       } else {
         this.img = document.getElementById("attackumb1");
@@ -206,12 +213,30 @@ class Player {
     var lineheight = 55;
     var lines = txt.split("\n");
 
-    if (this.playerCount % 2 === 0) {
+    if (this.playerCount === 0) {
 
-    } else {
-      x = 1500;
+      // x=x+100;
+
+    } else if (this.playerCount === 1) {
+      x = x + 250;
       y = 80;
 
+    } else if (this.playerCount === 2) {
+      x = x + 500;
+      y = 80;
+    } else if (this.playerCount === 3) {
+      x = x + 750;
+    } else if (this.playerCount === 4) {
+      x = x + 1000;
+
+    } else if (this.playerCount === 5) {
+      x = x + 1250;
+
+    } else if (this.playerCount === 6) {
+      x = x + 1500;
+    } else {
+      x = 100;
+      y = 160;
     }
 
     for (var i = 0; i < lines.length; i++)

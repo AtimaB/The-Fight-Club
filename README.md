@@ -4,7 +4,7 @@
 
 ## Description
 
-As gamers we wanted to create a game that we could play with our friends and share with others so they could play with their friends. We drew insperation from a simple youtube video that showed how to create a multiplayer game in a browser then to decided to take the multiplayer aspect and make a Mortal Kombat style game. We wanted the ability for players to be able to track their score and save their scores to see who can achieve the highest score out of our friends.
+As gamers we wanted to create a game that we could play with our friends and share with others so they could play with their friends. We drew inspiration from a simple youtube video that showed how to create a multiplayer game in a browser then to decided to take the multiplayer aspect and make a Mortal Kombat style game. We wanted the ability for players to be able to track their score and save their scores to see who can achieve the highest score out of our friends.
 
 ## Table of Contents
 
