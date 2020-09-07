@@ -88,7 +88,7 @@ class Player {
       this.x -= this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
       if (this.playerCount % 2 === 0) {
-        this.w = 450;
+        this.w = 250;
         this.img = document.getElementById('moving-' + frame);
 
 
