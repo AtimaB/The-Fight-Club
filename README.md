@@ -10,6 +10,8 @@ As gamers we wanted to create a game that we could play with our friends and sha
 
 - [Installation](#Installation)
 - [Usage](#Usage)
+- [Instruction](#Instruction)
+- [Usage](#Usage)
 - [Github/Heroku](#Github/Heroku)
 - [License](#License)
 - [Screenshots](#Screenshots)
@@ -25,7 +27,13 @@ Users will need to clone the repository onto their local computer. Once the repo
 
 To use the app you must open the terminal and use the command `node server.js`. Then go into the browser and enter in `localhost:8080`. This will take you to the home page of the app and you can begin playing. You can also use the app with the Heroku link that will be provided in this README.md to use the app and this does not require any cloning or installation of dependencies. 
 
-`*"For the best gaming experience, use Google Chrome"*`
+
+## Instruction
+`"For the best gaming experience, please use Google Chrome"`
+- ◄ : Move Left
+- ► : Move Right
+- ▲ : Guitar Attack
+- ⬆SHIFT : Umbrella Attacks
 
 ## Github/Heroku
 
@@ -56,8 +64,9 @@ To use the app you must open the terminal and use the command `node server.js`. 
 - Yakini Arumuga Kani 
 - Collin Hodgson  
 
-## Questions/Contact
+## Questions
 
+##### Contact
 * [YakiniA](https://github.com/YakiniA)
 * [AtimaB](https://github.com/AtimaB)
 * [Collin-Hodgson](https://github.com/Collin-Hodgson)
