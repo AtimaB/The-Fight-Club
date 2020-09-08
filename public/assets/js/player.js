@@ -68,9 +68,11 @@ class Player {
 
     if (this.isMoving.right) {
 
-
+      // var steps= 0;
+      // steps++;
       this.steps++;
       this.x += this.speed;
+      // let frame = Math.floor(this.steps / 10) % 3;
       let frame = Math.floor(this.steps / 10) % 3;
       if (this.playerCount % 2 === 0) {
         this.w = 315;
@@ -81,12 +83,16 @@ class Player {
         this.img = document.getElementById('moving1-' + frame);
 
       }
+     
     }
     if (this.isMoving.left) {
-
+      // var steps= 0;
+      // steps++;
       this.steps++;
       this.x -= this.speed;
+      // let frame = Math.floor(this.steps / 10) % 3;
       let frame = Math.floor(this.steps / 10) % 3;
+
       if (this.playerCount % 2 === 0) {
         this.w = 250;
         this.img = document.getElementById('moving-' + frame);
@@ -95,6 +101,7 @@ class Player {
       } else {
         this.img = document.getElementById('moving1-' + frame);
       }
+    
     }
 
 
@@ -112,7 +119,7 @@ class Player {
           if (crash) {
             // this.upcount++;
             this.count++;
-            players[i].score = players[i].score - 0.2;
+            players[i].score = players[i].score - 0.02;
             onAttack(players[i]);
             // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
             // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
@@ -167,8 +174,8 @@ class Player {
 
           if (crash) {
             this.count++;
-            players[i].score = players[i].score - 0.2;
-
+            players[i].score = players[i].score - 0.02;
+            console.log(players[i].score);
             onAttack(players[i]);
             // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
             // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
