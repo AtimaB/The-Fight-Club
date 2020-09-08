@@ -47,6 +47,7 @@ To use the app you must open the terminal and use the command `node server.js`. 
 ## Screenshots
 ![the-fight-club](./public/assets/images/welcomePage.png)
 ![Game](./public/assets/images/gamePage.png)
+![RecordedVideo](./public/assets/images/FightClubVideo.gif)
 
 
 ## Resources
