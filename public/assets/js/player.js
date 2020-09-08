@@ -16,6 +16,8 @@ class Player {
     this.score = score;
     this.URLid = URLid;
     this.URLname = URLname;
+    this.count=0;
+    // this.upcount=0;
   }
 
 
@@ -27,7 +29,6 @@ class Player {
 
     var gameoverMusic = document.getElementById("gameoveraudio");
     myMusic.play();
-
     if (this.playerCount % 2 === 0) {
       this.w = 250;
       this.img = document.getElementById("source");
@@ -38,7 +39,6 @@ class Player {
 
     if (this.score < 0) {
       if (this.playerCount % 2 === 0) {
-        // this.w=250;
         this.img = document.getElementById("dieR-2");
 
       } else {
@@ -73,7 +73,7 @@ class Player {
       this.x += this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
       if (this.playerCount % 2 === 0) {
-        this.w = 450;
+        this.w = 315;
         this.img = document.getElementById('moving-' + frame);
 
       } else {
@@ -99,29 +99,36 @@ class Player {
 
 
     if (this.isMoving.up) {
-
       var myPunch = document.getElementById('sound');
       myPunch.play();
       var crash;
+      // console.log("before for loop " + this.count);        
 
       for (var i = 0; i < players.length; i++) {
+        // console.log("count inside for loop " +this.count);        
         if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
           crash = this.crashWith(players[i]);
-
+          // console.log("count Inside for loop if before crash " + this.count);
           if (crash) {
-
-            players[i].score = players[i].score - 0.02;
+            // this.upcount++;
+            this.count++;
+            players[i].score = players[i].score - 0.2;
             onAttack(players[i]);
+            // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
+            // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
+            // console.log("count Inside for loop if inside crash " + this.count);
+           if(this.count >= 60){
+            console.log("count Inside guitar punch " + this.count);
+              $.ajax("/api/game", {
+                type: "PUT",
+                data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
 
-            console.log("players[i].URLid" + players[i].URLid + " players[i].URLid" + players[i].URLid);
-            $.ajax("/api/game", {
-              type: "PUT",
-              data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
-
-            }).then(
-              function () {
-              }
-            );
+              }).then(
+                function () {
+                }
+              );
+              this.count=0;
+            }
 
           }
         }
@@ -139,41 +146,47 @@ class Player {
 
     if (this.isMoving.down) {
 
-
       if (this.playerCount % 2 === 0) {
-        // this.w=250;
         this.img = document.getElementById("defend");
       } else {
-        // this.w=250;
         this.img = document.getElementById("defend1");
       }
 
     }
 
     if (this.isMoving.shift) {
+      
       var myPunch = document.getElementById("sound");
       myPunch.play();
 
       for (var i = 0; i < players.length; i++) {
+       
         if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
 
 
           if (crash) {
-
-            players[i].score = players[i].score - 0.02;
+            this.count++;
+            players[i].score = players[i].score - 0.2;
 
             onAttack(players[i]);
+            // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
+            // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
+            // console.log("count  " +count);
+            if(this.count >= 60){
+               console.log("count Inside Umb punch" +this.count);
+              // console.log("I'm inside update");
+              $.ajax("/api/game", {
+                type: "PUT",
+                data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
 
-            $.ajax("/api/game", {
-              type: "PUT",
-              data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
+              }).then(
+                function () {
 
-            }).then(
-              function () {
-
-              }
-            );
+                }
+              );
+              this.count=0;
+            }
           }
         }
       }
