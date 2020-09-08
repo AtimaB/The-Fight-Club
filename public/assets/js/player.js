@@ -1,6 +1,6 @@
 class Player {
 
-  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score = 100, URLid, URLname }) {
+  constructor({ id, w = 450, h = 500, img, x, y, type, playerCount, score = 200, URLid, URLname }) {
     this.type = type;
 
     this.img = img;
@@ -17,7 +17,7 @@ class Player {
     this.URLid = URLid;
     this.URLname = URLname;
     this.count=0;
-    // this.upcount=0;
+  
   }
 
 
@@ -109,11 +109,11 @@ class Player {
           crash = this.crashWith(players[i]);
           if (crash) {
             this.count++;
-            players[i].score = players[i].score - 0.02;
+            players[i].score = players[i].score - 0.2;
             onAttack(players[i]);
            
            if(this.count >= 60){
-            console.log("count Inside guitar punch " + this.count);
+            // console.log("count Inside guitar punch " + this.count);
               $.ajax("/api/game", {
                 type: "PUT",
                 data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
@@ -162,10 +162,10 @@ class Player {
 
           if (crash) {
             this.count++;
-            players[i].score = players[i].score - 0.02;
+            players[i].score = players[i].score - 0.2;
             onAttack(players[i]);
             if(this.count >= 60){
-               console.log("count Inside Umb punch" +this.count);
+              //  console.log("count Inside Umb punch" +this.count);
               $.ajax("/api/game", {
                 type: "PUT",
                 data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
@@ -221,25 +221,21 @@ class Player {
       // x=x+100;
 
     } else if (this.playerCount === 1) {
-      x = x + 250;
+      x  = x + 1400;
+      y = 80;
+ 
+    } else if (this.playerCount === 2) {
+      x = x + 310;
       y = 80;
 
-    } else if (this.playerCount === 2) {
-      x = x + 500;
-      y = 80;
     } else if (this.playerCount === 3) {
-      x = x + 750;
+      x = x + 650;
     } else if (this.playerCount === 4) {
       x = x + 1000;
 
-    } else if (this.playerCount === 5) {
-      x = x + 1250;
-
-    } else if (this.playerCount === 6) {
-      x = x + 1500;
-    } else {
+    }else {
       x = 100;
-      y = 160;
+      y = 180;
     }
 
     for (var i = 0; i < lines.length; i++)

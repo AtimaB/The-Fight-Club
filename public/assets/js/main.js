@@ -63,8 +63,10 @@ window.onload = function () {
       }
       players[i].x = obj.x;
       players[i].y = obj.y;
+      players[i].isMoving.right = obj.isMoving.right;
+      players[i].isMoving.left = obj.isMoving.left;
+      // players[i].isMoving.up = obj.isMoving.up;
       players[i].score = obj.score;
-      players[i].steps = obj.steps;
       draw();
     });
     console.log(players);
