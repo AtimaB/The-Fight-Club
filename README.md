@@ -35,7 +35,8 @@ To use the app you must open the terminal and use the command `node server.js`. 
 - This project uses the following license:  **MIT** 
 
 ## Screenshots
-![the-fight-club](./public/assets/images/backgroundLogo2.jpg)
+![the-fight-club](./public/assets/images/welcomePage.png)
+![Game](./public/assets/images/gamePage.png)
 
 
 ## Resources
