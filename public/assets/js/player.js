@@ -69,10 +69,9 @@ class Player {
     if (this.isMoving.right) {
 
       this.steps++;
-      console.log("Right steps" +this.steps);
       this.x += this.speed;
-      let frame = Math.floor(this.steps / 20) % 3;
-      console.log("right side frame" +frame);
+      let frame = Math.floor(this.steps / 10) % 3;
+    
       if (this.playerCount % 2 === 0) {
         this.w = 315;
         this.img = document.getElementById('moving-' + frame);
@@ -86,10 +85,8 @@ class Player {
     if (this.isMoving.left) {
     
       this.steps++;
-      console.log("left steps" +this.steps);
       this.x -= this.speed;
-      let frame = Math.floor(this.steps / 20) % 3;
-      console.log("left side frame" +frame);
+      let frame = Math.floor(this.steps / 10) % 3;
 
       if (this.playerCount % 2 === 0) {
         this.w = 250;
