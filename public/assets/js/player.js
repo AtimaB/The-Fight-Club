@@ -47,7 +47,7 @@ class Player {
       }
 
       myMusic.pause();
-      // myMusic.src = '';
+      myMusic.src = '';
       gameoverMusic.play();
 
       ctx.font = "100px Arial";
@@ -62,7 +62,7 @@ class Player {
         ctx.fillText(lines[i], x, y + i * lineheight);
       }
 
-      window.location.replace("/score");
+      window.location.replace("/score?T="+Math.floor(Date.now() /1000));
 
     }
 
