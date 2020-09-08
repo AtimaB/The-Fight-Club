@@ -33,10 +33,3 @@ $(function () {
     window.location.replace("/")
    });
 });
-
-
-
-//   $("#ca").on("click", function (event) {});
-// });
-
-
