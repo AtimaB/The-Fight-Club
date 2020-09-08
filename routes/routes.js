@@ -88,7 +88,7 @@ var maximumScore;
 
         });
    
-        db.Player.findAll({ limit: 5 , order : Sequelize.literal('id DESC') })
+        db.Player.findAll({ limit: 6 , order : Sequelize.literal('id DESC') })
          
         .then(function (Player) {
         

@@ -68,10 +68,10 @@ class Player {
 
     if (this.isMoving.right) {
 
-
       this.steps++;
       this.x += this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
+    
       if (this.playerCount % 2 === 0) {
         this.w = 315;
         this.img = document.getElementById('moving-' + frame);
@@ -83,10 +83,11 @@ class Player {
       }
     }
     if (this.isMoving.left) {
-
+    
       this.steps++;
       this.x -= this.speed;
       let frame = Math.floor(this.steps / 10) % 3;
+
       if (this.playerCount % 2 === 0) {
         this.w = 250;
         this.img = document.getElementById('moving-' + frame);
@@ -102,21 +103,15 @@ class Player {
       var myPunch = document.getElementById('sound');
       myPunch.play();
       var crash;
-      // console.log("before for loop " + this.count);        
-
+    
       for (var i = 0; i < players.length; i++) {
-        // console.log("count inside for loop " +this.count);        
         if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
           crash = this.crashWith(players[i]);
-          // console.log("count Inside for loop if before crash " + this.count);
           if (crash) {
-            // this.upcount++;
             this.count++;
-            players[i].score = players[i].score - 0.2;
+            players[i].score = players[i].score - 0.02;
             onAttack(players[i]);
-            // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
-            // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
-            // console.log("count Inside for loop if inside crash " + this.count);
+           
            if(this.count >= 60){
             console.log("count Inside guitar punch " + this.count);
               $.ajax("/api/game", {
@@ -167,15 +162,10 @@ class Player {
 
           if (crash) {
             this.count++;
-            players[i].score = players[i].score - 0.2;
-
+            players[i].score = players[i].score - 0.02;
             onAttack(players[i]);
-            // console.log("DefendPlayer Id: " +this.URLid+ "DefendPlayer score: " +this.score)
-            // console.log("attack player id" + players[i].URLid + " Attack player score" + players[i].score);
-            // console.log("count  " +count);
             if(this.count >= 60){
                console.log("count Inside Umb punch" +this.count);
-              // console.log("I'm inside update");
               $.ajax("/api/game", {
                 type: "PUT",
                 data: { id: players[i].URLid, name: players[i].URLname, score: players[i].score },
