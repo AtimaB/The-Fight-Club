@@ -4,11 +4,13 @@ module.exports = function (sequelize, DataTypes) {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: {
-          args: 1,
-          msg: "Please enter your name.",
-        },
-      },
+          validateName(val) {
+            if (val.trim().length === 0) {
+                throw new Error('Please enter your name.');
+                
+            }
+          },
+     },
     },
     score: {
       type: DataTypes.INTEGER,

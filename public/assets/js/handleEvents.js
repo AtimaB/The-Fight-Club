@@ -8,6 +8,10 @@ $(function () {
     };
 
     console.log("New person" +newperson);
+    if(Error){
+    $(".errorMsg").text('Please enter your name.');
+    }
+
     // window.location = "/game#" +newperson;
      $.ajax("/api/game", {
        type: "POST",
@@ -32,4 +36,9 @@ $(function () {
     // return res.redirect("/");
     window.location.replace("/")
    });
+
+   $("#textarea1").on("click", function(event){
+    event.preventDefault();
+    $(".errorMsg").text("");
+  });
 });

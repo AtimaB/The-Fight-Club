@@ -111,8 +111,7 @@ class Player {
             this.count++;
             players[i].score = players[i].score - 0.2;
             onAttack(players[i]);
-           
-           if(this.count >= 60){
+           if(this.count >= 60 && players[i].score >=0){
             // console.log("count Inside guitar punch " + this.count);
               $.ajax("/api/game", {
                 type: "PUT",
@@ -123,8 +122,7 @@ class Player {
                 }
               );
               this.count=0;
-            }
-
+            }     
           }
         }
       }
@@ -158,13 +156,11 @@ class Player {
        
         if (this.id !== players[i].id && isCollide(this, players[i], 0)) {
           var crash = this.crashWith(players[i]);
-
-
           if (crash) {
             this.count++;
             players[i].score = players[i].score - 0.2;
             onAttack(players[i]);
-            if(this.count >= 60){
+            if(this.count >= 60 && players[i].score >=0){
               //  console.log("count Inside Umb punch" +this.count);
               $.ajax("/api/game", {
                 type: "PUT",
@@ -203,7 +199,7 @@ class Player {
     var txt;
 
     var score;
-    ctx.font = "50px Arial";
+    ctx.font = "50px Arial"; 
     if (this.score < 0) {
       score = 0;
     } else {
