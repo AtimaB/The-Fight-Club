@@ -24,9 +24,6 @@ router.post("/api/game", function (req, res) {
   })
 
     .then(function (PlayerStateCount) {
-
-      // console.log("Player Active State" + PlayerStateCount);
-
       try {
         if (PlayerStateCount < 2) {
 
@@ -35,10 +32,8 @@ router.post("/api/game", function (req, res) {
             score: 200,
             activeState: 1,
             playerUUID: uuidv4(),
-            time: new Date()
           }).then(function (response) {
             res.json(response);
-            // console.log("Time after insert:" + response.time);
           })
             .catch(function (err) {
               res.status(500).json({ "error": 'Please enter your name!!' });
@@ -59,8 +54,6 @@ function uuidv4() {
   });
 }
 
-
-
 router.put("/api/game", function (req, res) {
   var idValue = req.body.id;
   var nameValue = req.body.name;
@@ -70,29 +63,8 @@ router.put("/api/game", function (req, res) {
     score = 0;
   }
 
-  if (score < 10) {
-
-    db.Player.update({
-      activeState: 0,
-
-    },
-      {
-        where: {
-          activeState: 1
-
-        },
-
-      }).then(function (dbPost) {
-
-      });
-
-
-  }
-
   db.Player.update({
     score: score,
-    time: new Date()
-
   },
     {
       where: {
@@ -105,10 +77,22 @@ router.put("/api/game", function (req, res) {
       res.json(dbPost);
     });
 
-
 });
 
 router.get("/score", function (req, res) {
+  db.Player.update({
+    activeState: 0,
+
+  },
+    {
+      where: {
+        activeState: 1
+
+      },
+
+    }).then(function (dbPost) {
+
+    });
 
   var maximumScore;
   db.Player.findAll({
