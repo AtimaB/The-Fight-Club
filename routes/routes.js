@@ -1,21 +1,28 @@
-// import player from "./public/assets/js/main.js";
-// import player from "../public/assets/js/main.js";
-// var player = require("../public/assets/js/main.js");
 var express = require("express");
 var path = require("path");
+var moment = require("moment");
 var db = require("../models");
 var router = express.Router();
 const Sequelize = require("sequelize");
-// var player = require("../public/assets/js/controls.js");
 
 var pathForindexFile = path.join(__dirname, '../views/index.html');
 var pathForWelcomeFile = path.join(__dirname, '../views/welcome.html');
-// Import the model (burger.js) to use its database functions.
-// var burger = require("../models/.js");
-
-// Create all our routes and set up logic within those routes where required.
 
 router.get("/", function(req, res) {
+  console.log(new Date());
+  var threeMinuteAgo = new Date( Date.now() - 1000 * 180 );
+  console.log(threeMinuteAgo);
+  db.Player.findAll({
+     
+       where: {
+        updatedAt:  {        
+        $lt:threeMinuteAgo,
+        }
+       },
+
+     }).then(function (dbPost) {
+      console.log(dbPost);
+     });
 
    res.sendFile(pathForWelcomeFile);
 });
@@ -25,21 +32,40 @@ router.get("/game", function(req, res) {
     res.sendFile(pathForindexFile);
    });
 
-// window.location = "/score#"
  router.post("/api/game", function(req,res) {
-  //  console.log(player.id);
-     db.Player.create({
-        name:  req.body.name,
-        score : 100,
-        playerUUID : uuidv4()
-     }).then(function (response) {
-       //  res.redirect(307, "/game");
-     res.json(response);
-     })
-     .catch(function(err) {
-       res.status(500).json(err);
-     });
-   });
+  db.Player.count({
+    where: {
+      activeState: 1
+    }
+ })
+        
+ .then(function (PlayerStateCount) {
+ 
+   console.log("Player Active State" +PlayerStateCount);
+
+try{
+    if(PlayerStateCount<2){
+      
+        db.Player.create({
+            name:  req.body.name,
+            score : 200,
+            activeState : 1,
+            playerUUID : uuidv4(),
+            time: new Date()
+        }).then(function (response) {
+          res.json(response);
+        })
+        .catch(function(err) {
+          res.status(500).json({"error" : 'Please enter your name!!'});
+        });
+      }
+    }catch{
+        throw new Error('Game is already in Progress. Please wait for 2 minutes. Thank you!!!');
+        }
+
+ });
+
+});
 
    function uuidv4() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -51,30 +77,50 @@ router.get("/game", function(req, res) {
 
 
  router.put("/api/game" ,  function (req, res) {
-  //  console.log(req.body);
       var idValue = req.body.id;
       var nameValue = req.body.name;
       var score = req.body.score;
 
       if(score<0){
-        score=0;
+        score = 0;
       }
-     db.Player.update({score : score}, 
-      {
-         where: {
-           playerUUID: idValue,
-           name: nameValue
-         },
+
+      if(score<10){
+       
+        db.Player.update({
+          activeState: 0,
          
-       }).then(function (dbPost) {
-         res.json(dbPost);
-       });
+         },
+            {
+             where: {
+               activeState:1
+             
+             },
+   
+           }).then(function (dbPost) {
+            
+           });
+
+       
+      }
+
+      db.Player.update({
+        score : score, 
+       
+      },
+         {
+          where: {
+            playerUUID: idValue,
+            name: nameValue,
+          
+          },
+
+        }).then(function (dbPost) {
+          res.json(dbPost);
+        });
 
    
 });
-
-          // var template = Handlebars.templates.example;
-          // document.getElementById('output').innerHTML = template({doesWhat: 'rocks!'})
 
 router.get("/score" ,  function (req, res) {
 
@@ -83,7 +129,6 @@ var maximumScore;
           attributes: [[Sequelize.fn('max', Sequelize.col('score')), 'maxScore']],
          
         }) .then(function (Player) {
-          // console.log("maxScore" +Player);
           maximumScore = Player;
 
         });
@@ -91,8 +136,6 @@ var maximumScore;
         db.Player.findAll({ limit: 6 , order : Sequelize.literal('id DESC') })
          
         .then(function (Player) {
-        
-          // console.log(Player);
           res.render("end", {
             PlayerValues : Player,
             HighscoreValue : maximumScore
@@ -100,8 +143,7 @@ var maximumScore;
           });
       
         });
+
     });
-
-
 
 module.exports = router;

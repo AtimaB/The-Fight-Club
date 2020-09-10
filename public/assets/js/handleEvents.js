@@ -1,5 +1,7 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function () {
+  $(".errorMsg").text("");
+
   $("#submitBtn").on("click", function (event) {
     event.preventDefault();
 
@@ -7,33 +9,37 @@ $(function () {
       name: $("#textarea1").val().trim(),
     };
 
-    console.log("New person" +newperson);
+
     if(Error){
-    $(".errorMsg").text('Please enter your name.');
+     $(".errorMsg").text('Game is already in Progress. Please wait for 2 minutes. Thank you!!!');
+    }else{
+      $(".errorMsg").text("");
     }
 
-    // window.location = "/game#" +newperson;
-     $.ajax("/api/game", {
-       type: "POST",
-       data: newperson
-     }).then(
-       function(res) {
-         console.log("created new person");
-         console.log(res);
-         // Reload the page to get the updated list
-        //  window.location = "/game";
-        console.log(res.playerUUID);
-        console.log(res.name);
-        window.location.replace("/game?id=" +res.playerUUID+"&name="+res.name);
+    var person = Object.keys(newperson).map(k => newperson[k])
+    if(person!=""){
+      
+        $.ajax("/api/game", {
+          type: "POST",
+          data: newperson
+        }).then(
+          function(res) {
+            // console.log("created new person");
+            // console.log(res);
+            // console.log(res.playerUUID);
+            // console.log(res.name);
+            window.location.replace("/game?id=" +res.playerUUID+"&name="+res.name);
 
        }
      );
+    }else{
+      $(".errorMsg").text('Please enter your name...');
+    }
    });
 
    
    $("#again").on("click", function (event) {
     event.preventDefault();
-    // return res.redirect("/");
     window.location.replace("/")
    });
 
