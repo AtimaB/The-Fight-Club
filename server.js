@@ -5,7 +5,7 @@ var PORT = process.env.PORT || 8080;
 var app = express();
 var http = require("http").createServer(app);
 var io = require("socket.io")(http);
-// http.listen(PORT);
+
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static("public"));
 
@@ -30,7 +30,7 @@ const players = [];
 const sockets = {};
 
 io.on("connection", function (socket) {
-  console.log("socket connected" + socket);
+  // console.log("socket connected" + socket);
 
   socket.emit("init", { id: socket.id, plyrs: players});
 
@@ -70,7 +70,7 @@ io.on("connection", function (socket) {
   });
 });
 
-db.sequelize.sync({force:true}).then(function () {
+db.sequelize.sync().then(function () {
   http.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
   });
