@@ -9,17 +9,21 @@ module.exports = function (sequelize, DataTypes) {
                 throw new Error('Please enter your name.');
                 
             }
-          },
+        },
      },
     },
     score: {
       type: DataTypes.INTEGER,
       // allowNull: false,
     },
+    activeState: {
+      type: DataTypes.INTEGER,
+    },
     playerUUID: {
       type: DataTypes.STRING,
       // allowNull: false,
     },
+   
   });
   return Player;
 };
